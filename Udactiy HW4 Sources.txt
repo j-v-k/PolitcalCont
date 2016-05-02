@@ -1,0 +1,3030 @@
+Sources HW4
+http://docs.ggplot2.org/0.9.3.1/guide_legend.html
+http://stackoverflow.com/questions/13540955/ggplot2-r-markdown
+http://www.dummies.com/how-to/content/how-to-extract-values-from-a-matrix-in-r.html
+http://www.r-tutor.com/r-introduction/data-frame
+http://stackoverflow.com/questions/15285089/r-duplicate-row-names-are-not-allowed
+http://flowingdata.com/2015/02/18/loading-data-and-basic-formatting-in-r/
+ftp://ftp.fec.gov/FEC/Presidential_Map/2016/DATA_DICTIONARIES/CONTRIBUTOR_FORMAT.txt
+http://stackoverflow.com/questions/12504549/how-to-change-the-font-size-and-color-of-x-axis-and-y-axis-label-in-a-scatterplo
+http://stackoverflow.com/questions/18165578/subset-and-ggplot2
+http://stackoverflow.com/questions/15210805/r-and-ggplot2-make-line-graph-of-sum-of-value-for-three-categorical-variables-o
+http://stackoverflow.com/questions/25086798/compute-cumulative-sum-for-levels-of-a-nesting-variable
+http://www.ats.ucla.edu/stat/r/faq/subset_R.htm
+
+http://stackoverflow.com/questions/21313905/how-to-set-ggplot-alpha-transparency-value-for-all-points-at-once
+https://en.wikipedia.org/wiki/Coefficient_of_determination
+http://www.r-bloggers.com/running-totals-in-r/
+http://stackoverflow.com/questions/15768099/ggplot2-and-cumsum
+http://stackoverflow.com/questions/1177926/r-object-identification
+http://stackoverflow.com/questions/10085806/extracting-specific-columns-from-a-data-frame
+http://stackoverflow.com/questions/17496358/r-help-converting-factor-to-date
+http://stackoverflow.com/questions/3606697/how-to-set-limits-for-axes-in-ggplot2-r-plots
+https://stat.ethz.ch/R-manual/R-devel/library/base/html/Logic.html
+http://stackoverflow.com/questions/26644994/selecting-top-n-values-within-a-group-in-a-column-using-r
+https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html
+http://www.r-bloggers.com/installing-r-packages/
+http://docs.ggplot2.org/0.9.3/geom_point.html
+http://stackoverflow.com/questions/20689650/how-to-append-rows-to-an-r-data-frame
+
+
+
+
+http://stackoverflow.com/questions/21297989/sort-data-frame-column-by-factor
+http://blog.datacamp.com/tutorial-on-loops-in-r/
+http://stackoverflow.com/questions/13774773/check-whether-value-exist-in-one-data-frame-or-not
+https://stat.ethz.ch/pipermail/r-help/2005-August/077420.html
+http://stackoverflow.com/questions/7201341/how-can-2-strings-be-concatenated-in-r
+http://stats.stackexchange.com/questions/2125/whats-the-difference-between-correlation-and-simple-linear-regression
+http://stackoverflow.com/questions/1330989/rotating-and-spacing-axis-labels-in-ggplot2
+Contributions by month: unlabeled code:
+ggplot(EData, aes(x=Dates , y=cumsum(EData$contb_receipt_amt))) + geom_line() + scale_x_date(limits = c(as.Date("2015-01-01"), as.Date("2015-09-30")))
+
+
+
+top8 <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward 'Ted'" |  TrsCandDataFrame$Name == "Bush, Jeb" |  TrsCandDataFrame$Name == "Walker, Scott" |  TrsCandDataFrame$Name == "Carson, Benjamin S."|  TrsCandDataFrame$Name == "Rubio, Marco" | TrsCandDataFrame$Name == "Fiorina, Carly" ,  ]
+
+
+Labeled
+> ggplot(EData, aes(x=Through_September_2015 , y=TotalRecieptAmount/1000000)) + geom_line() + scale_x_date(breaks = (by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> ggsave("Total Received by Date -LAbeled.png")
+Saving 9.94 x 6.1 in image
+> 
+
+Multiple Candidates
+made data frame,
+
+transformed with: transform(CandDataFrame, cumsum = ave(Amount, Name, FUN = cumsum))
+
+
+Here is console at 10:11
+
+
+
+
+
+
+1/19 3:16
+
+
+R version 3.2.1 (2015-06-18) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Workspace loaded from ~/Udacity HW 4/Udacity Project #4_files/.RData]
+
+> Cities <- unique(EData$contbr_st)
+> Cities <- unique(EData$contbr_city)
+> CandNM <- unique(EData$cand_nm)
+> SuperCDF <- data.frame(CityDF2$Category)
+> for(i in Cities){
++     CDF <- subset(EData, contbr_city == i)
++     CDF2 <-aggregate(CDF$contb_receipt_amt, by=list(Category=CDF$cand_nm), FUN=sum)
++     
++     notIn <- subset(CandNM, !(CandNM %in% CDF2$Category))
++     for(j in notIn) {
++         newRow = c(j,0)
++         StateDF2 = rbind(CDF2, newRow)
++         
++     }
++     
++     CDF2 <- with(CDF2, CDF2[order(Category, x),])
++     CDF2$x <-as.numeric(CDF2$x)
++     SuperCDF[[paste(i)]] <- CDF2$x/Ed$x
++     
++ }
+
+There were 50 or more warnings (use warnings() to see the first 50)
+> tail(names(sort(table(EData$contbr_city))), 3)
+[1] "WASHINGTON" "HOUSTON"    "NEW YORK"  
+> cities <- tail(names(sort(table(EData$contbr_city))), 75)
+> Cities <- tail(names(sort(table(EData$contbr_city))), 75)
+> Cities <- tail(names(sort(table(EData$contbr_city))), 75)
+> CandNM <- unique(EData$cand_nm)
+> SuperCDF <- data.frame(CityDF2$Category)
+> for(i in Cities){
++     CDF <- subset(EData, contbr_city == i)
++     CDF2 <-aggregate(CDF$contb_receipt_amt, by=list(Category=CDF$cand_nm), FUN=sum)
++     
++     notIn <- subset(CandNM, !(CandNM %in% CDF2$Category))
++     for(j in notIn) {
++         newRow = c(j,0)
++         StateDF2 = rbind(CDF2, newRow)
++         
++     }
++     
++     CDF2 <- with(CDF2, CDF2[order(Category, x),])
++     CDF2$x <-as.numeric(CDF2$x)
++     SuperCDF[[paste(i)]] <- CDF2$x/Ed$x
++     
++ }
+There were 50 or more warnings (use warnings() to see the first 50)
+> SuperCDF2 <- data.frame(City=factor(),
++                         Cand_NM=factor(),
++                         Perc_Of_City_per_cand =numeric())
+> for (i in Cities){
++     countVar = 0
++     for(j in unique(SuperCDF$CityDF2.Category)) {
++         countVar =  countVar + 1
++         percentValue <- SuperCDF[countVar, i]
++         newDF = data.frame(City = c(i), Cand_NM = c(j), Perc_Of_City_per_cand = c(percentValue ))
++         
++         SuperCDF2 <- rbind(SuperCDF2, newDF)}
++ }
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .015 ), aes( x =City,  y = Cand_NM))
+Error: could not find function "ggplot"
+> library(ggplot2)
+Warning message:
+package ‘ggplot2’ was built under R version 3.2.2 
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .015 ), aes( x =City,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_City_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .025 ), aes( x =City,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_City_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .05 ), aes( x =City,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_City_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .07 ), aes( x =City,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_City_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> View(SuperCDF2)
+> View(CityDF2)
+> View(CDF2)
+> View(CityDF2)
+> View(CDF2)
+> View(SuperCDF)
+> View(CDF2)
+> CDF2$x/Ed$x
+ [1] 0.083379709 0.003725508 0.055868866 0.112820399 0.012251610 0.020487794 0.067331136 0.016617876 0.002909505
+[10] 0.026924607 0.055778820 0.032204062 0.216658324 0.024833874 0.006828147 0.026841652 0.033655445 0.008190417
+[19] 0.021759984 0.025759374 0.034234787
+> View(SuperCDF)
+> BethesdaCDF <- subset(EData, contbr_city == "BETHESDA")
+> BethCDF2 <-aggregate(BethesdaCDF$contb_receipt_amt, by=list(Category=BethesdaCDF$cand_nm), FUN=sum)
+> View(BethCDF2)
+> Cities <- "BETHESDA"
+> for(i in Cities){
++     # Creates a subset of the data for each city
++     CDF <- subset(EData, contbr_city == i)
++     
++     #Aggregates the total each candidate receives from the respective city
++     CDF2 <-aggregate(CDF$contb_receipt_amt, by=list(Category=CDF$cand_nm), FUN=sum)
++     
++     #If the candidate does not recieve any money from the city, this chunk adds in the
++     #candidate and assigns him or her a value of 0
++     notIn <- subset(CandNM, !(CandNM %in% CDF2$Category))
++     for(j in notIn) {
++         newRow = c(j,0)
++         StateDF2 = rbind(CDF2, newRow)
++         
++     }
++     #Orders the row by the Candidate name and makes the contrbution column numeric
++     CDF2 <- with(CDF2, CDF2[order(Category, x),])
++     CDF2$x <-as.numeric(CDF2$x)
++     
++     #Adds on the the column for each city with percent of total contriubtions due from each city
++     SuperCDF[[paste(i)]] <- CDF2$x/Ed$x
++     
++ }
+Warning message:
+In CDF2$x/Ed$x :
+  longer object length is not a multiple of shorter object length
+> View(SuperCDF)
+> SuperCDF <- data.frame(CityDF2$Category)
+> for(i in Cities){
++     # Creates a subset of the data for each city
++     CDF <- subset(EData, contbr_city == i)
++     
++     #Aggregates the total each candidate receives from the respective city
++     CDF2 <-aggregate(CDF$contb_receipt_amt, by=list(Category=CDF$cand_nm), FUN=sum)
++     
++     #If the candidate does not recieve any money from the city, this chunk adds in the
++     #candidate and assigns him or her a value of 0
++     notIn <- subset(CandNM, !(CandNM %in% CDF2$Category))
++     for(j in notIn) {
++         newRow = c(j,0)
++         StateDF2 = rbind(CDF2, newRow)
++         
++     }
++     #Orders the row by the Candidate name and makes the contrbution column numeric
++     CDF2 <- with(CDF2, CDF2[order(Category, x),])
++     CDF2$x <-as.numeric(CDF2$x)
++     
++     #Adds on the the column for each city with percent of total contriubtions due from each city
++     SuperCDF[[paste(i)]] <- CDF2$x/Ed$x
++     
++ }
+Warning message:
+In CDF2$x/Ed$x :
+  longer object length is not a multiple of shorter object length
+> View(SuperCDF)
+> View(CDF2)
+> notIn
+[1] Webb, James Henry Jr.  Huckabee, Mike         Pataki, George E.      Perry, James R. (Rick)
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> for(j in notIn) {
++     print(j)
++     newRow = c(j,0)
++     StateDF2 = rbind(CDF2, newRow)
++     
++ }
+[1] "Webb, James Henry Jr."
+[1] "Huckabee, Mike"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+> View(CDF2)
+> Cities <- tail(names(sort(table(EData$contbr_city))), 75)
+> CandNM <- unique(EData$cand_nm)
+> SuperCDF <- data.frame(CityDF2$Category)
+> for(i in Cities){
++     # Creates a subset of the data for each city
++     CDF <- subset(EData, contbr_city == i)
++     
++     #Aggregates the total each candidate receives from the respective city
++     CDF2 <-aggregate(CDF$contb_receipt_amt, by=list(Category=CDF$cand_nm), FUN=sum)
++     
++     #If the candidate does not recieve any money from the city, this chunk adds in the
++     #candidate and assigns him or her a value of 0
++     notIn <- subset(CandNM, !(CandNM %in% CDF2$Category))
++     for(j in notIn) {
++         print(j)
++         newRow = c(j,0)
++         CDF2 = rbind(CDF2, newRow)
++         
++     }
++     #Orders the row by the Candidate name and makes the contrbution column numeric
++     CDF2 <- with(CDF2, CDF2[order(Category, x),])
++     CDF2$x <-as.numeric(CDF2$x)
++     
++     #Adds on the the column for each city with percent of total contriubtions due from each city
++     SuperCDF[[paste(i)]] <- CDF2$x/Ed$x
++     
++ }
+[1] "Webb, James Henry Jr."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Lessig, Lawrence"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Webb, James Henry Jr."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Webb, James Henry Jr."
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Trump, Donald J."
+[1] "Christie, Christopher J."
+[1] "Webb, James Henry Jr."
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Paul, Rand"
+[1] "Jindal, Bobby"
+[1] "Perry, James R. (Rick)"
+[1] "Kasich, John R."
+[1] "Lessig, Lawrence"
+[1] "Webb, James Henry Jr."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Paul, Rand"
+[1] "Webb, James Henry Jr."
+[1] "Graham, Lindsey O."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Webb, James Henry Jr."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Webb, James Henry Jr."
+[1] "Graham, Lindsey O."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Lessig, Lawrence"
+[1] "Pataki, George E."
+[1] "Trump, Donald J."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Trump, Donald J."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Webb, James Henry Jr."
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Graham, Lindsey O."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Trump, Donald J."
+[1] "Perry, James R. (Rick)"
+[1] "Walker, Scott"
+[1] "Christie, Christopher J."
+[1] "Webb, James Henry Jr."
+[1] "O'Malley, Martin Joseph"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Kasich, John R."
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Lessig, Lawrence"
+[1] "Webb, James Henry Jr."
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Graham, Lindsey O."
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Kasich, John R."
+[1] "Webb, James Henry Jr."
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Lessig, Lawrence"
+[1] "Webb, James Henry Jr."
+[1] "Graham, Lindsey O."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Lessig, Lawrence"
+[1] "Webb, James Henry Jr."
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Perry, James R. (Rick)"
+[1] "Graham, Lindsey O."
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Walker, Scott"
+[1] "Christie, Christopher J."
+[1] "Kasich, John R."
+[1] "Lessig, Lawrence"
+[1] "Huckabee, Mike"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Walker, Scott"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Trump, Donald J."
+[1] "Perry, James R. (Rick)"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Jindal, Bobby"
+[1] "Lessig, Lawrence"
+[1] "Webb, James Henry Jr."
+[1] "Graham, Lindsey O."
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Kasich, John R."
+[1] "Lessig, Lawrence"
+[1] "Graham, Lindsey O."
+[1] "O'Malley, Martin Joseph"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Kasich, John R."
+[1] "Lessig, Lawrence"
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Lessig, Lawrence"
+[1] "Webb, James Henry Jr."
+[1] "Santorum, Richard J."
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Kasich, John R."
+[1] "Lessig, Lawrence"
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Webb, James Henry Jr."
+[1] "Graham, Lindsey O."
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Graham, Lindsey O."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Perry, James R. (Rick)"
+[1] "Walker, Scott"
+[1] "Webb, James Henry Jr."
+[1] "Huckabee, Mike"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Huckabee, Mike"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Webb, James Henry Jr."
+[1] "Graham, Lindsey O."
+[1] "Santorum, Richard J."
+[1] "O'Malley, Martin Joseph"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Kasich, John R."
+[1] "Webb, James Henry Jr."
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Christie, Christopher J."
+[1] "Webb, James Henry Jr."
+[1] "Graham, Lindsey O."
+[1] "O'Malley, Martin Joseph"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Lessig, Lawrence"
+[1] "Webb, James Henry Jr."
+[1] "Pataki, George E."
+[1] "Huckabee, Mike"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Christie, Christopher J."
+[1] "Jindal, Bobby"
+[1] "Jindal, Bobby"
+[1] "Pataki, George E."
+[1] "Perry, James R. (Rick)"
+[1] "Graham, Lindsey O."
+[1] "Huckabee, Mike"
+[1] "Santorum, Richard J."
+[1] "Jindal, Bobby"
+[1] "Christie, Christopher J."
+[1] "Lessig, Lawrence"
+
+> for(i in Cities){
++     # Creates a subset of the data for each city
++     CDF <- subset(EData, contbr_city == i)
++     
++     #Aggregates the total each candidate receives from the respective city
++     CDF2 <-aggregate(CDF$contb_receipt_amt, by=list(Category=CDF$cand_nm), FUN=sum)
++     
++     #If the candidate does not recieve any money from the city, this chunk adds in the
++     #candidate and assigns him or her a value of 0
++     notIn <- subset(CandNM, !(CandNM %in% CDF2$Category))
++     for(j in notIn) {
++         
++         newRow = c(j,0)
++         CDF2 = rbind(CDF2, newRow)
++         
++     }
++     #Orders the row by the Candidate name and makes the contrbution column numeric
++     CDF2 <- with(CDF2, CDF2[order(Category, x),])
++     CDF2$x <-as.numeric(CDF2$x)
++     
++     #Adds on the the column for each city with percent of total contriubtions due from each city
++     SuperCDF[[paste(i)]] <- CDF2$x/Ed$x
++     
++ }
+> SuperCDF2 <- data.frame(City=factor(),
++                         Cand_NM=factor(),
++                         Perc_Of_City_per_cand =numeric())
+> for (i in Cities){
++     countVar = 0
++     for(j in unique(SuperCDF$CityDF2.Category)) {
++         countVar =  countVar + 1
++         
++         # Gets the percent of the Total Value for a candidate which is from the respective city
++         percentValue <- SuperCDF[countVar, i]
++         
++         newDF = data.frame(City = c(i), Cand_NM = c(j), Perc_Of_City_per_cand = c(percentValue ))
++         
++         SuperCDF2 <- rbind(SuperCDF2, newDF)}
++ }
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .07 ), aes( x =City,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_City_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .01 ), aes( x =City,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_City_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .02 ), aes( x =City,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_City_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperCDF2,Perc_Of_City_per_cand > .015 ), aes( x =City,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_City_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> rSquaredDF <- data.frame(City=factor(),
++                          RSquared=numeric())
+> for(i in unique(EData$contbr_city)){
++     
++     
++     DCCorr.lm <- lm(SuperCDF$Total_Contributions ~ Perc_Of_City_per_cand ,data = subset(SuperCDF2,City == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(City = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = SuperCDF$Total_Contributions ~  : 
+  invalid type (NULL) for variable 'SuperCDF$Total_Contributions' > View(SuperCDF)
+> rSquaredDF <- data.frame(City=factor(),
++                          RSquared=numeric())
+> for(i in unique(EData$contbr_city)){
++     
++     
++     DCCorr.lm <- lm(SuperCDF$Total_Contributions ~ Perc_Of_City_per_cand ,data = subset(SuperCDF2,City == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(City = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = SuperCDF$Total_Contributions ~  : 
+  invalid type (NULL) for variable 'SuperCDF$Total_Contributions' > 
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = City))
+> p  + geom_bar(stat = "identity")
+> View(SuperCDF)
+> rSquaredDF <- data.frame(City=factor(),
++                          RSquared=numeric())
+> for(i in unique(EData$contbr_city)){
++     
++     
++     DCCorr.lm <- lm(ED$X ~ Perc_Of_City_per_cand ,data = subset(SuperCDF2,City == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(City = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in eval(expr, envir, enclos) : object 'ED' not found > for(i in unique(EData$contbr_city)){
++     
++     
++     DCCorr.lm <- lm(Ed$X ~ Perc_Of_City_per_cand ,data = subset(SuperCDF2,City == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(City = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = Ed$X ~ Perc_Of_City_per_cand, data = subset(SuperCDF2,  : 
+  invalid type (NULL) for variable 'Ed$X' > View(Ed)
+> Ed$x
+ [1] 23243472.9 11746359.7  3976329.1 61726374.1 17008622.2  4505707.1  2932402.6  1895549.1  1013918.1  3734242.1
+[11]   621494.5  2921991.6   365091.0  4376828.1  1120362.6 10746283.2  9018526.0   781401.0  1009731.0  4654810.3
+[21]   398717.2
+> for(i in cities){
++     
++     
++     DCCorr.lm <- lm(Ed$X ~ Perc_Of_City_per_cand ,data = subset(SuperCDF2,City == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(City = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = Ed$X ~ Perc_Of_City_per_cand, data = subset(SuperCDF2,  : 
+  invalid type (NULL) for variable 'Ed$X' > for(i in cities){
++     
++     
++     DCCorr.lm <- lm(Ed$x ~ Perc_Of_City_per_cand ,data = subset(SuperCDF2,City == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(City = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = City))
+> p  + geom_bar(stat = "identity")
+> rSquaredDF <- data.frame(City=factor(),
++                          RSquared=numeric())
+> for(i in cities){
++     
++     
++     DCCorr.lm <- lm( Perc_Of_City_per_cand ~ Ed$x ,data = subset(SuperCDF2,City == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(City = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = City,  y = RSquared))
+> p  + geom_bar(stat = "identity")
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = State,  y = RSquared))
+> q <- p  + geom_bar(stat = "identity")
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+Error in eval(expr, envir, enclos) : object 'State' not found
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = City,  y = RSquared))
+> q <- p  + geom_bar(stat = "identity")
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))  
+> DCCorr.lm <- lm(Total_Contributions ~ percent, data =CityDF2)
+> summary(DCCorr.lm)$r.squared 
+[1] 0.4421663
+> EData <- read.csv("~/Udacity HW 4/Election_Data_Edited.csv")
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'C:/Users/James/Documents/Udacity HW 4/Election_Data_Edited.csv': No such file or directory
+> EData <- read.csv("C:\Users\James\Documents\Udacity HW 4/Election_Data_Edited.csv")
+Error: '\U' used without hex digits in character string starting ""C:\U"
+> EData <- read.csv("C:\Users\James\Documents\Udacity HW 4\Udacity Project #4_files\Election_Data_Edited.csv")
+Error: '\U' used without hex digits in character string starting ""C:\U"
+> EData <- read.csv("C:\Users\James\Documents\Udacity HW 4\Udacity Project #4_files\Election_Data_Edited.csv")
+Error: '\U' used without hex digits in character string starting ""C:\U"
+> EData <- read.csv("~/Udacity HW 4/Udacity Project #4_files/Election_Data_Edited.csv")
+> View(EData)
+> 
+> 
+> Zips <- tail(names(sort(table(EData$contbr_zip_short))), 100)
+> SuperCDF <- data.frame(CityDF2$Category)
+> SuperZDF <- data.frame(CityDF2$Category)
+> for(i in Zips){
++     # Creates a subset of the data for each Zip Code
++     ZDF <- subset(EData, contbr_zip_shorter == i)
++     
++     #Aggregates the total each candidate receives from the respective Zip Code
++     ZDF2 <-aggregate(ZDF$contb_receipt_amt, by=list(Category=ZDF$cand_nm),FUN=sum)
++     
++     #If the candidate does not recieve any money from the Zip Code, this chunk adds in the
++     #candidate and assigns him or her a value of 0
++     notIn <- subset(CandNM, !(CandNM %in% ZDF2$Category))
++     for(j in notIn) {
++         
++         newRow = c(j,0)
++         ZDF2 = rbind(ZDF2, newRow)
++         
++     }
++     #Orders the row by the Candidate name and makes the contrbution column numeric
++     ZDF2 <- with(ZDF2, ZDF2[order(Category, x),])
++     ZDF2$x <-as.numeric(ZDF2$x)
++     
++     #Adds on the the column for each city with percent of total contriubtions due from each Zip Code
++     SuperZDF[[paste(i)]] <- ZDF2$x/Ed$x
++     
++ }
+> SuperZDF2 <- data.frame(City=factor(),
++                         Cand_NM=factor(),
++                         Zip_Per_Cand =numeric())
+> SuperZDF2 <- data.frame(Zip=factor(),
++                         Cand_NM=factor(),
++                         Zip_Per_Cand =numeric())
+> for (i in Zips){
++     countVar = 0
++     for(j in unique(SuperZDF$CityDF2.Category)) {
++         countVar =  countVar + 1
++         
++         # Gets the percent of the Total Value for a candidate which is from the respective city
++         percentValue <- SuperZDF[countVar, i]
++         
++         newDF = data.frame(Zip = c(i),Cand_NM = c(j),Zip_Per_Cand= c(percentValue ))
++         
++         SuperZDF2 <- rbind(SuperZDF2, newDF)}
++ }
+Error in data.frame(Zip = c(i), Cand_NM = c(j), Zip_Per_Cand = c(percentValue)) : 
+  arguments imply differing number of rows: 1, 0
+> View(SuperZDF)
+> EData <- read.csv("~/Udacity HW 4/Udacity Project #4_files/Election_Data_Edited.csv")
+> Zips <- tail(names(sort(table(EData$contbr_zip_short))), 100)
+> SuperZDF <- data.frame(CityDF2$Category)
+> for(i in Zips){
++     # Creates a subset of the data for each Zip Code
++     ZDF <- subset(EData, contbr_zip_shorter == i)
++     
++     #Aggregates the total each candidate receives from the respective Zip Code
++     ZDF2 <-aggregate(ZDF$contb_receipt_amt, by=list(Category=ZDF$cand_nm),FUN=sum)
++     
++     #If the candidate does not recieve any money from the Zip Code, this chunk adds in the
++     #candidate and assigns him or her a value of 0
++     notIn <- subset(CandNM, !(CandNM %in% ZDF2$Category))
++     for(j in notIn) {
++         
++         newRow = c(j,0)
++         ZDF2 = rbind(ZDF2, newRow)
++         
++     }
++     #Orders the row by the Candidate name and makes the contrbution column numeric
++     ZDF2 <- with(ZDF2, ZDF2[order(Category, x),])
++     ZDF2$x <-as.numeric(ZDF2$x)
++     
++     #Adds on the the column for each city with percent of total contriubtions due from each Zip Code
++     SuperZDF[[paste(i)]] <- ZDF2$x/Ed$x
++     
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in eval(expr, envir, enclos) : 
+  object 'contbr_zip_shorter' not found > Zips <- tail(names(sort(table(EData$contbr_zip_short))), 100)
+> SuperZDF <- data.frame(CityDF2$Category)
+> for(i in Zips){
++     # Creates a subset of the data for each Zip Code
++     ZDF <- subset(EData, contbr_zip_short == i)
++     
++     #Aggregates the total each candidate receives from the respective Zip Code
++     ZDF2 <-aggregate(ZDF$contb_receipt_amt, by=list(Category=ZDF$cand_nm),FUN=sum)
++     
++     #If the candidate does not recieve any money from the Zip Code, this chunk adds in the
++     #candidate and assigns him or her a value of 0
++     notIn <- subset(CandNM, !(CandNM %in% ZDF2$Category))
++     for(j in notIn) {
++         
++         newRow = c(j,0)
++         ZDF2 = rbind(ZDF2, newRow)
++         
++     }
++     #Orders the row by the Candidate name and makes the contrbution column numeric
++     ZDF2 <- with(ZDF2, ZDF2[order(Category, x),])
++     ZDF2$x <-as.numeric(ZDF2$x)
++     
++     #Adds on the the column for each city with percent of total contriubtions due from each Zip Code
++     SuperZDF[[paste(i)]] <- ZDF2$x/Ed$x
++     
++ }
+> SuperZDF2 <- data.frame(Zip=factor(),
++                         Cand_NM=factor(),
++                         Zip_Per_Cand =numeric())
+> for (i in Zips){
++     countVar = 0
++     for(j in unique(SuperZDF$CityDF2.Category)) {
++         countVar =  countVar + 1
++         
++         # Gets the percent of the Total Value for a candidate which is from the respective city
++         percentValue <- SuperZDF[countVar, i]
++         
++         newDF = data.frame(Zip = c(i),Cand_NM = c(j),Zip_Per_Cand= c(percentValue ))
++         
++         SuperZDF2 <- rbind(SuperZDF2, newDF)}
++ }
+> p <-ggplot(subset(SuperZDF2, Zip_Per_Cand >.015 ),aes(x = City,y = Cand_NM))
+> y <- p + geom_point(aes(size = Perc_Of_City_per_cand ))
+> q <- y + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+Error in eval(expr, envir, enclos) : 
+  object 'Perc_Of_City_per_cand' not found
+> p <-ggplot(subset(SuperZDF2, Zip_Per_Cand >.015 ),aes(x = Zip,y = Cand_NM))
+> y <- p + geom_point(aes(size = Zip_Per_Cand ))
+> q <- y + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> rSquaredDF <- data.frame(Zip=factor(),
++                          RSquared=numeric())
+> for(i in Zip){
++     
++     
++     DCCorr.lm <- lm( Zip_Per_Cand ~ Ed$x ,data = subset(SuperZDF2,Zip == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(Zip = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+Error: object 'Zip' not found
+> for(i in Zips){
++     
++     
++     DCCorr.lm <- lm( Zip_Per_Cand ~ Ed$x ,data = subset(SuperZDF2,Zip == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(Zip = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+> r <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = Zip,  y = RSquared))
+> q <- p  + geom_bar(stat = "identity")
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))     
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = Zip,  y = RSquared))
+> q <- p  + geom_bar(stat = "identity")
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(rSquaredDF,RSquared > .1 ), aes( x = Zip,  y = RSquared))
+> q <- p  + geom_bar(stat = "identity")
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+> ChiZipDF <- subset(EData, contbr_zip_short == '60614')
+> ChiZipDF2 <-aggregate(CityDF$contb_receipt_amt, by=list(Category=ChiZipDF$cand_nm), FUN=sum)
+Error in aggregate.data.frame(as.data.frame(x), ...) : 
+  arguments must have same length
+> ChiZipDF2 <-aggregate(ChiZipDF$contb_receipt_amt, by=list(Category=ChiZipDF$cand_nm), FUN=sum)
+> View(ChiZipDF2)
+> notIn <- subset(CandNM, !(CandNM %in% ChiZipDF2$Category))
+> for(j in notIn) {
++     newRow = c(j,0)
++     ChiZipDF2 = rbind(ChiZipDF2, newRow)
++     
++ }
+> ChiZipDF2 <- with(ChiZipDF2, ChiZipDF2[order(Category, x),])
+> ChiZipDF2$x <-as.numeric(ChiZipDF2$x)
+> ChiZipDFDF2$Total_Contributions <- Ed$x
+Error in ChiZipDFDF2$Total_Contributions <- Ed$x : 
+  object 'ChiZipDFDF2' not found
+> ChiZipDF2$Total_Contributions <- Ed$x
+> ChiZipDF2$percent <- ChiZipDF$x/Ed$x
+Error in `$<-.data.frame`(`*tmp*`, "percent", value = numeric(0)) : 
+  replacement has 0 rows, data has 21
+> View(ChiZipDF2)
+> View(ChiZipDF2)
+> ChiZipDF2$percent <- ChiZipDF2$x/Ed$x
+> p <-ggplot(data = ChiZipDFDF2, aes(x = Category, y = percent)) 
+Error in ggplot(data = ChiZipDFDF2, aes(x = Category, y = percent)) : 
+  object 'ChiZipDFDF2' not found
+> y =p  + geom_bar(stat = "identity")
+> t=y+theme(text=element_text(size=9),axis.text.x=element_text(angle=90,vjust=1))
+> r<- t + labs(title = "Portions of Total $ Contributions From Zip 60614") 
+> q<- r + xlab("") + ylab("")
+> y <- p  + geom_bar(stat = "identity") 
+> t<-y+theme(text=element_text(size=9),axis.text.x=element_text(angle=90,vjust=1))
+> r<- t + labs(title = "Portions of Total $ Contributions From Zip 60614") 
+> q<- r + xlab("") + ylab("")
+> p <-ggplot(data = ChiZipDFD, aes(x = Category, y = percent))
+Error in ggplot(data = ChiZipDFD, aes(x = Category, y = percent)) : 
+  object 'ChiZipDFD' not found
+> p <-ggplot(data = ChiZipDF, aes(x = Category, y = percent)) 
+> y <- p  + geom_bar(stat = "identity") 
+> t<-y+theme(text=element_text(size=9),axis.text.x=element_text(angle=90,vjust=1))
+> r<- t + labs(title = "Portions of Total $ Contributions From Zip 60614") 
+> q<- r + xlab("") + ylab("")
+> p <-ggplot(data = ChiZipDF, aes(x = Category, y = percent)) + geom_bar(stat = "identity") + theme(text=element_text(size=9),axis.text.x=element_text(angle=90,vjust=1)) + labs(title = "Portions of Total $ Contributions From Zip 60614")  + xlab("") + ylab("")
+> p
+Error in eval(expr, envir, enclos) : object 'Category' not found
+> View(ChiZipDF)
+> p <-ggplot(data = ChiZipDF2, aes(x = Category, y = percent)) + geom_bar(stat = "identity") + theme(text=element_text(size=9),axis.text.x=element_text(angle=90,vjust=1)) + labs(title = "Portions of Total $ Contributions From Zip 60614")  + xlab("") + ylab("")
+> p
+> View(ChiZipDF2)
+> p <-ggplot(data = ChiZipDF2, aes(x = Category, y = x)) + geom_bar(stat = "identity") + theme(text=element_text(size=9),axis.text.x=element_text(angle=90,vjust=1)) + labs(title = "Total $ Contributions From Zip 60614")  + xlab("") + ylab("")
+> p
+> DCCorr.lm <- lm(Total_Contributions ~ percent, data =ChiZipDF2)
+> summary(DCCorr.lm)
+
+Call:
+lm(formula = Total_Contributions ~ percent, data = ChiZipDF2)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-14821103  -2853683    806958   1921106  15230034 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -2.556e+04  2.152e+06  -0.012    0.991    
+percent      1.217e+10  1.925e+09   6.325 4.53e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 7972000 on 19 degrees of freedom
+Multiple R-squared:  0.678,	Adjusted R-squared:  0.6611 
+F-statistic: 40.01 on 1 and 19 DF,  p-value: 4.534e-06
+
+> p <- ggplot(ChiZipDF2, aes( percent, Total_Contributions))
+> p + geom_point(size = 3) + geom_abline(intercept = -2.556e+04 , slope = 1.217e+10  )
+> p <- ggplot(subset(ChiZipDF2, CandNM != 'Clinton,Hilary'), aes( percent, Total_Contributions))
+> p + geom_point(size = 3)
+> p <- ggplot(subset(ChiZipDF2, CandNM != 'Clinton, Hillary Rodham'), aes( percent, Total_Contributions))
+> p + geom_point(size = 3)
+> View(ChiZipDF2)
+> p <- ggplot(subset(ChiZipDF2, Category != 'Clinton, Hillary Rodham'), aes( percent, Total_Contributions))
+> p + geom_point(size = 3)
+> DCCorr.lm <- lm(Total_Contributions ~ percent, data =subset(ChiZipDF2, Category != 'Clinton, Hillary Rodham'))
+> summary(DCCorr.lm)
+
+Call:
+lm(formula = Total_Contributions ~ percent, data = subset(ChiZipDF2, 
+    Category != "Clinton, Hillary Rodham"))
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-6015844 -3019551 -2301537   827693 17293790 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)  
+(Intercept) 3.410e+06  1.817e+06   1.876   0.0769 .
+percent     3.846e+09  2.518e+09   1.527   0.1440  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5942000 on 18 degrees of freedom
+Multiple R-squared:  0.1147,	Adjusted R-squared:  0.06556 
+F-statistic: 2.333 on 1 and 18 DF,  p-value: 0.144
+
+> p <- ggplot(subset(ChiZipDF2, Category != 'Clinton, Hillary Rodham'), aes( percent, Total_Contributions))
+> p + geom_point(size = 3) + geom_abline(intercept = 3.410e+06 , slope =3.846e+09  )
+> summary(ChiZipCorr.lm)$r.squared 
+Error in summary(ChiZipCorr.lm) : object 'ChiZipCorr.lm' not found
+> DCCorr.lm <- lm(Total_Contributions ~ percent, data =subset(ChiZipDF2, Category != 'Clinton, Hillary Rodham'))
+> summary(ChiZipCorr.lm)$r.squared 
+Error in summary(ChiZipCorr.lm) : object 'ChiZipCorr.lm' not found
+> ChiZipCorr.lm <- lm(Total_Contributions ~ percent, data =subset(ChiZipDF2, Category != 'Clinton, Hillary Rodham'))
+> summary(ChiZipCorr.lm)$r.squared 
+[1] 0.1147451
+
+Code for Retired Bar Chart
+> Ed <- aggregate(EData$contb_receipt_amt, by=list(Category=EData$cand_nm), FUN=sum)
+> df2<- aggregate(df1$contb_receipt_amt, by=list(Category=df1$cand_nm), FUN=sum) 
+> df2$percent <- df2$x/Ed$x
+> dfw$percent[1]
+Error: object 'dfw' not found
+> df2$percent[1]
+[1] 0.1273166
+> ggplot(data = df2), aes(x = Category, y = x)  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))
+Error: unexpected ',' in "ggplot(data = df2),"
+> ggplot(data = df2, aes(x = Category, y = x))  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))
+> ggplot(data = df2, aes(x = Category, y = percent))  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))
+ggplot(data = df2, aes(x = Category, y = percent))  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))+ labs(title = "Portion of Amount from Retired Persons")  + ylab("Retired Total Contributions/Total Contributions per Candidate") 
+> ggplot(data = df2, aes(x = Category, y = percent))  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))+ labs(title = "Poritons of Total contributions From Retired Persons")  + xlab("") + ylab("")
+> ggplot(data = df2, aes(x = Category, y = percent))  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))+ labs(title = "Poritons of Total $ Contributions From Retired Persons")  + xlab("") + ylab("")
+> ggsave("Retired Portions.png")
+
+
+
+
+
+"> ggplot(EData, aes(x= DateThrough_September_2015 , y= Amount, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in eval(expr, envir, enclos) : 
+  object 'DateThrough_September_2015' not found
+> ggplot(EData, aes(x= Date , y= Amount, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in eval(expr, envir, enclos) : object 'Date' not found
+> ggplot(CandDataFrame, aes(x= Date , y= Amount, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> View(CandDataFrame)
+> ggsave("No cumsum all Cand.png")
+Saving 9.94 x 6.1 in image
+> ggplot(CandDataFrame, aes(x= Date , y= Fun, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in eval(expr, envir, enclos) : object 'Fun' not found
+> ggplot(CandDataFrame, aes(x= Date , y= FUN, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in eval(expr, envir, enclos) : object 'FUN' not found
+> names(CandDataFrame)
+[1] "Date"   "Amount" "Name"  
+> TrsCandDataFrame <- transform(CandDataFrame, cumsum = ave(Amount, Name, FUN = cumsum))
+> names(TrsCandDataFrame)
+[1] "Date"   "Amount" "Name"   "cumsum"
+> ggplot(CandDataFrame, aes(x= Date , y= cumsum, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Don't know how to automatically pick scale for object of type function. Defaulting to continuous
+Error in data.frame(x = c(15979, 15979, 15982, 15982, 15982, 15982, 15985,  : 
+  arguments imply differing number of rows: 384885, 0
+> CandDataFrame$cumsum[4]
+NULL
+> CandDataFrame$Amount[3]"
+
+
+
+Console at 1:30
+
+12:04
+
+"> TrsCandDataFrame <- transform(CandDataFrame, cumsum = ave(Amount, Name, FUN = cumsum))
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> ggsave("All Candidates by Month.png")
+Saving 9.94 x 6.1 in image
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> 
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum/1000000)) + geom_line(colour= "Carson, Ben") + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in grDevices::col2rgb(colour, TRUE) : 
+  invalid color name 'Carson, Ben'
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum/1000000)) + geom_line(colour= "Sanders, Bernard") + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in grDevices::col2rgb(colour, TRUE) : 
+  invalid color name 'Sanders, Bernard'
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum/1000000)) + geom_line(y = "Sanders, Bernard", colour= "Sanders, Bernard") + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in exists(name, envir = env, mode = mode) : 
+  argument "env" is missing, with no default
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line(colour = "Sanders, Bernard") + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in grDevices::col2rgb(colour, TRUE) : 
+  invalid color name 'Sanders, Bernard'
+> > ggsave("All Candidates by Month.png")
+Error: unexpected '>' in ">"
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line( y = "Sanders, Bernard") + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error in exists(name, envir = env, mode = mode) : 
+  argument "env" is missing, with no default
+> ggplot(TrsCandDataFrame, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> ggplot(data = subset(TrsCandDataFrame, Name = "Clinton, Hilary", aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
++ 
+
+> 
+
+> 
+
+> ggplot(data = subset(TrsCandDataFrame, Name = "Clinton, Hilary"), aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> hildf = subset(TrsCandDataFrame, Name = "Clinton, Hilary")
+> hilldf$name[5]
+Error: object 'hilldf' not found
+> hildf$name[2]
+NULL
+> TrsCandDataFrame$Name[2]
+[1] Rubio, Marco
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hilldf$Name[5]
+Error: object 'hilldf' not found
+> hildf$Name[5]
+[1] Rubio, Marco
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hildf = subset(TrsCandDataFrame, Name == "Clinton, Hilary")
+> hildf$Name[5]
+[1] <NA>
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hildf$Name[5111]
+[1] <NA>
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hildf$Name[52111]
+[1] <NA>
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hildf$Name[5211]
+[1] <NA>
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hildf = subset(TrsCandDataFrame, TrsCandDataFrame$Name == "Clinton, Hilary")
+> hildf$Name[5211]
+[1] <NA>
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hildf$Name[1]
+[1] <NA>
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hildf <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hilary",]
+> hildf$Name[1]
+[1] <NA>
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> hildf$Amount[1]
+[1] NA
+> hildf <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham",]
+> hildf$Amount[1]
+[1] 2700
+> ggplot(data = TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham",]), aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error: unexpected ',' in "ggplot(data = TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham",]),"
+> ggplot(data = hildf, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> ggsave["hil graph.png"]
+Error in ggsave["hil graph.png"] : 
+  object of type 'closure' is not subsettable
+> ggsave("hil graph.png")
+Saving 9.94 x 6.1 in image
+> topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" || TrsCandDataFrame$Name == "Clinton, Hillary Rodham" || TrsCandDataFrame$Name == "Sanders, Bernard" || TrsCandDataFrame$Name == "Clinton, Hillary Rodham" ,]
+> topsix$Amount[1]
+[1] NA
+> topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" ||  TrsCandDataFrame$Name == "Sanders, Bernard" ,]
+> topsix$Amount[1]
+[1] NA
+> topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" ,]
+> topsix$Amount[1]
+[1] 2700
+> topsix$Names[1]
+NULL
+> topsix$Name[1]
+[1] Clinton, Hillary Rodham
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> topsix$Name[4500]
+[1] Clinton, Hillary Rodham
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> topsix$Name[6500]
+[1] Clinton, Hillary Rodham
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> topsix$Name[16500]
+[1] Sanders, Bernard
+21 Levels: Bush, Jeb Carson, Benjamin S. Christie, Christopher J. ... Webb, James Henry Jr.
+> topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward "Ted" |  TrsCandDataFrame$Name == "Bush, Jeb" |  TrsCandDataFrame$Name == "Walker, Scott" |  TrsCandDataFrame$Name == "Carson, Benjamin S."|  TrsCandDataFrame$Name == "Rubio, Marco" | TrsCandDataFrame$Name == "Fiorina, Carly" ,  ]
+Error: unexpected symbol in "topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward "Ted"
+> topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward "Ted"" |  TrsCandDataFrame$Name == "Bush, Jeb" |  TrsCandDataFrame$Name == "Walker, Scott" |  TrsCandDataFrame$Name == "Carson, Benjamin S."|  TrsCandDataFrame$Name == "Rubio, Marco" | TrsCandDataFrame$Name == "Fiorina, Carly" ,  ]
+Error: unexpected symbol in "topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward "Ted"
+> topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward 'Ted' |  TrsCandDataFrame$Name == "Bush, Jeb" |  TrsCandDataFrame$Name == "Walker, Scott" |  TrsCandDataFrame$Name == "Carson, Benjamin S."|  TrsCandDataFrame$Name == "Rubio, Marco" | TrsCandDataFrame$Name == "Fiorina, Carly" ,  ]
+Error: unexpected symbol in "topsix <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward 'Ted' |  TrsCandDa"
+> top8 <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward 'Ted'" |  TrsCandDataFrame$Name == "Bush, Jeb" |  TrsCandDataFrame$Name == "Walker, Scott" |  TrsCandDataFrame$Name == "Carson, Benjamin S."|  TrsCandDataFrame$Name == "Rubio, Marco" | TrsCandDataFrame$Name == "Fiorina, Carly" ,  ]
+> ggplot(data = top8), aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+Error: unexpected ',' in "ggplot(data = top8),"
+> ggplot(data = top8, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line() + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> ggplot(data = top8, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line(size = 2) + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> ggplot(data = top8, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line(size = 1) + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+> ggsave("Top 6 Cumululative received.png")
+Saving 9.94 x 6.1 in image
+> 
+> 
+
+> ggplot(data = top8, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_smooth(size = 1) + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30"))) + labs(title = "Total Recieved By Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions") 
+geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
+> ggsave("smoothe top 6.png")
+Saving 9.94 x 6.1 in image
+geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method."
+
+
+
+
+
+
+
+
+options(scipen=10000)
+ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity")
+
+
+ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y" )
+> ggsave("contributions by amount over time.png")
+
+
+
+
+
+
+
+
+> ggplot(data = EData, aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) + xlab("Candidate Name") + ylab("$ Contributions") + labs(title = "Total $ Contributions for Each Candidate")
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggsave("Total Contributions Labeled.png")
+Saving 9.94 x 6.1 in image
+
+Console as of 12/3 1:30
+
+9755   4661
+9756   4661
+9757   4661
+9758   4661
+9759   4661
+9760   4661
+9761   4661
+9762   4662
+9763   4662
+9764   4662
+9765   4662
+9766   4662
+9767   4662
+9768   4662
+9769   4662
+9770   4662
+9771   4662
+9772   4662
+9773   4662
+9774   4663
+9775   4663
+9776   4663
+9777   4663
+9778   4664
+9779   4664
+9780   4664
+9781   4665
+9782   4665
+9783   4665
+9784   4665
+9785   4665
+9786   4666
+9787   4666
+9788   4666
+9789   4666
+9790   4666
+9791   4666
+9792   4666
+9793   4666
+9794   4666
+9795   4666
+9796   4666
+9797   4666
+9798   4666
+9799   4666
+9800   4667
+9801   4668
+9802   4668
+9803   4668
+9804   4668
+9805   4668
+9806   4668
+9807   4668
+9808   4668
+9809   4669
+9810   4669
+9811   4669
+9812   4670
+9813   4670
+9814   4670
+9815   4670
+9816   4670
+9817   4670
+9818   4671
+9819   4672
+9820   4672
+9821   4672
+9822   4672
+9823   4672
+9824   4672
+9825   4672
+9826   4672
+9827   4672
+9828   4672
+9829   4672
+9830   4672
+9831   4672
+9832   4672
+9833   4672
+9834   4672
+9835   4672
+9836   4672
+9837   4672
+9838   4673
+9839   4673
+9840   4674
+9841   4675
+9842   4675
+9843   4675
+9844   4675
+9845   4676
+9846   4676
+9847   4676
+9848   4676
+9849   4676
+9850   4676
+9851   4677
+9852   4677
+9853   4678
+9854   4678
+9855   4678
+9856   4678
+9857   4678
+9858   4678
+9859   4678
+9860   4678
+9861   4678
+9862   4678
+9863   4678
+9864   4679
+9865   4679
+9866   4679
+9867   4679
+9868   4679
+9869   4679
+9870   4679
+9871   4679
+9872   4679
+9873   4679
+9874   4679
+9875   4679
+9876   4680
+9877   4680
+9878   4681
+9879   4681
+9880   4682
+9881   4682
+9882   4682
+9883   4682
+9884   4682
+9885   4682
+9886   4682
+9887   4682
+9888   4682
+9889   4683
+9890   4684
+9891   4685
+9892   4685
+9893   4685
+9894   4685
+9895   4685
+9896   4685
+9897   4685
+9898   4685
+9899   4685
+9900   4686
+9901   4686
+9902   4686
+9903   4687
+9904   4687
+9905   4687
+9906   4687
+9907   4688
+9908   4688
+9909   4688
+9910   4688
+9911   4688
+9912   4688
+9913   4688
+9914   4688
+9915   4689
+9916   4689
+9917   4689
+9918   4689
+9919   4689
+9920   4689
+9921   4690
+9922   4690
+9923   4690
+9924   4691
+9925   4691
+9926   4691
+9927   4692
+9928   4692
+9929   4692
+9930   4692
+9931   4692
+9932   4692
+9933   4692
+9934   4692
+9935   4692
+9936   4693
+9937   4693
+9938   4693
+9939   4693
+9940   4693
+9941   4693
+9942   4693
+9943   4693
+9944   4693
+9945   4693
+9946   4694
+9947   4694
+9948   4694
+9949   4695
+9950   4695
+9951   4696
+9952   4696
+9953   4697
+9954   4697
+9955   4698
+9956   4698
+9957   4698
+9958   4699
+9959   4700
+9960   4700
+9961   4700
+9962   4700
+9963   4700
+9964   4701
+9965   4702
+9966   4702
+9967   4702
+9968   4702
+9969   4702
+9970   4702
+9971   4702
+9972   4702
+9973   4702
+9974   4702
+9975   4702
+9976   4703
+9977   4703
+9978   4704
+9979   4704
+9980   4704
+9981   4704
+9982   4704
+9983   4704
+9984   4704
+9985   4704
+9986   4704
+9987   4704
+9988   4704
+9989   4704
+9990   4704
+9991   4704
+9992   4704
+9993   4704
+9994   4704
+9995   4704
+9996   4704
+9997   4704
+9998   4704
+9999   4704
+10000  4704
+ [ reached getOption("max.print") -- omitted 43940 rows ]
+> sum(diamonds['price'] < 250) 
+[1] 0
+> sum(diamonds['price'] < 500)
+[1] 1729
+> sum(diamonds['price'] 15000 500)
+Error: unexpected numeric constant in "sum(diamonds['price'] 15000"
+> sum(diamonds['price'] < 15000)
+[1] 52284
+> sum(diamonds['price'] > 15000)
+[1] 1655
+> sum(diamonds['price'] >= 15000)
+[1] 1656
+> sum(diamonds['price'] >= 1500000)
+[1] 0
+> sum(diamonds['price'] <= 1500000)
+[1] 53940
+> sum(diamonds['price'] < 500)
+[1] 1729
+> sum(diamonds['price'] =< 500)
+Error: unexpected '=' in "sum(diamonds['price'] ="
+> sum(diamonds['price'] <= 500)
+[1] 1749
+> sum(diamonds['price'] =< 250)
+Error: unexpected '=' in "sum(diamonds['price'] ="
+> sum(diamonds['price'] <= 250)
+[1] 0
+> sum(diamonds['price'] <= 327)
+[1] 3
+> sum(diamonds['price'] <= 335)
+[1] 5
+> View(diamonds)
+> View(diamonds)
+> write.xlsx(diamonds, "c:/mydata.xlsx")
+Error: could not find function "write.xlsx"
+> library(xlsx)
+Error in library(xlsx) : there is no package called ‘xlsx’
+> library(foreign)
+> write.foreign(diamonds, "c:/mydata.txt", "c:/mydata.sas",   package="SAS")
+Error in file(file, ifelse(append, "a", "w")) : 
+  cannot open the connection
+In addition: Warning message:
+In file(file, ifelse(append, "a", "w")) :
+  cannot open file 'c:/mydata.txt': Permission denied
+> write.foreign(mydata, "C:\Users\James\Documents\mydata.txt", "c:/mydata.sas",   package="SAS")
+Error: '\U' used without hex digits in character string starting ""C:\U"
+> write.csv(data,file = 'diamonddata.csv')
+> write.csv(diamonds,file = 'diamonddata.csv')
+> sum(diamonds['price'] < 500)
+[1] 1729
+> qplot(x = price, data = diamonds, xlim = c(0, 1000))
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> ggsave('priceHistogram.png')
+Saving 9.94 x 6.1 in image
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = price, data = diamonds, xlim = c(350, 1000))
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = price, data = diamonds, xlim = c(350, 1000), binwidth = range/10)
+Error in range/10 : non-numeric argument to binary operator
+> qplot(x = price, data = diamonds, xlim = c(350, 1000), binwidth = 200)
+> qplot(x = price, data = diamonds, xlim = c(350, 1000), binwidth = 20)
+> qplot(x = price, data = diamonds, xlim = c(350, 1000), binwidth = 1)
+> qplot(x = price, data = diamonds, xlim = c(350, 15000), binwidth = 10)
+> qplot(x = price, data = diamonds, binwidth = 10) + , scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,50))
+Error: unexpected ',' in "qplot(x = price, data = diamonds, binwidth = 10) + ,"
+> qplot(x = price, data = diamonds, binwidth = 10) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,50))
+> qplot(x = price, data = diamonds, binwidth = 25) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,50))
+> qplot(x = price, data = diamonds, binwidth = 25) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,10000,50))
+> 0
+[1] 0
+> qplot(x = price, data = diamonds, binwidth = 25) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,100000,50))
+> qplot(x = price, data = diamonds, binwidth = 25) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,100000,50000))
+> qplot(x = price, data = diamonds, binwidth = 25) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,100,50000))
+> qplot(x = price, data = diamonds, binwidth = 25) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,100,50))
+> qplot(x = price, data = diamonds, binwidth = 25) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,50))
+> qplot(x = price, data = diamonds, binwidth = 25)
+> qplot(x = price, data = diamonds, binwidth = 25) +  scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,50))
+> qplot(x = price, data = diamonds, xlim = c(350, 1000), binwidth = 25)
+> qplot(x = price, data = subset(diamonds, !is.na(cut) xlim = c(350, 15000), binwidth = 10)
+Error: unexpected symbol in "qplot(x = price, data = subset(diamonds, !is.na(cut) xlim"
+> qplot(x = price, data = subset(diamonds, !is.na("cut") xlim = c(350, 15000), binwidth = 10)
+Error: unexpected symbol in "qplot(x = price, data = subset(diamonds, !is.na("cut") xlim"
+> qplot(x = price, data = subset(diamonds, !is.na(cut)), xlim = c(350, 15000), binwidth = 10)
+> qplot(x = price, data = diamonds, xlim = c(350, 15000), binwidth = 10) +facet_wrap(cut
++ 
+> qplot(x = price, data = diamonds, xlim = c(350, 15000), binwidth = 10) +facet_wrap(cut)
+Error in UseMethod("as.quoted") : 
+  no applicable method for 'as.quoted' applied to an object of class "function"
+> qplot(x = price, data = diamonds, xlim = c(350, 15000), binwidth = 10) +facet_wrap(~cut)
+> qplot(x = price, data = diamonds, xlim = c(350, 15000), binwidth = 10) +facet_wrap(~cut) + scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,50))
+Scale for 'x' is already present. Adding another scale for 'x', which will replace the existing scale.
+> library(doBy)
+Error in library(doBy) : there is no package called ‘doBy’
+> tapply(data$price, mydf$cut, myFun)
+Error in tapply(data$price, mydf$cut, myFun) : object 'myFun' not found
+> 
+> 
+> 
+> 
+> tapply(data$price, mydf$cut, myFun)
+Error in tapply(data$price, mydf$cut, myFun) : object 'myFun' not found
+> function(x) {
++     c(min = min(x), max = max(x), 
++       mean = mean(x), median = median(x), 
++       std = sd(x))}
+function(x) {
+    c(min = min(x), max = max(x), 
+      mean = mean(x), median = median(x), 
+      std = sd(x))}
+> myFun <- function(x) {
++     c(min = min(x), max = max(x), 
++       mean = mean(x), median = median(x), 
++       std = sd(x))}
+> myFun
+function(x) {
+    c(min = min(x), max = max(x), 
+      mean = mean(x), median = median(x), 
+      std = sd(x))}
+> tapply(data$price, mydf$cut, myFun)
+Error in tapply(data$price, mydf$cut, myFun) : object 'mydf' not found
+> tapply(data$price, data$cut, myFun)
+Error in data$cut : object of type 'closure' is not subsettable
+> tapply(diamonds$price, diamonds$cut, myFun)
+$Fair
+      min       max      mean    median       std 
+  337.000 18574.000  4358.758  3282.000  3560.387 
+
+$Good
+      min       max      mean    median       std 
+  327.000 18788.000  3928.864  3050.500  3681.590 
+
+$`Very Good`
+      min       max      mean    median       std 
+  336.000 18818.000  3981.760  2648.000  3935.862 
+
+$Premium
+      min       max      mean    median       std 
+  326.000 18823.000  4584.258  3185.000  4349.205 
+
+$Ideal
+      min       max      mean    median       std 
+  326.000 18806.000  3457.542  1810.000  3808.401 
+
+> qplot(x = price, data = diamonds) + facet_wrap(~cut)
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = price, data = diamonds) + facet_wrap(~cut, scales = "free_y")
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = price/carat, data = diamonds) + facet_wrap(~cut, scales = "free_y")
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = price/carat, data = diamonds) + facet_wrap(~cut, scales = "free_y") + scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,50))
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+Error in exists(name, envir = env, mode = mode) : 
+  argument "env" is missing, with no default
+> qplot(x = price/carat, data = diamonds) + facet_wrap(~cut, scales = "free_y") + 
++     scale_x_log10()
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = price/carat, data = diamonds) + facet_wrap(~cut, scales = "free_y")
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = price, y = cut, data = diamonds, geom = 'boxplot')
+Warning messages:
+1: position_dodge requires constant width: output may be incorrect 
+2: position_dodge requires non-overlapping x intervals 
+> qplot(x = cut, y = price, data = diamonds, geom = 'boxplot')
+> qplot(x = cut, y = price < 1000, data = diamonds, geom = 'boxplot')
+> qplot(x = cut, y = price, data = diamonds, geom = 'boxplot')
+> IQR(subset(diamonds, price <1000)$price) 
+[1] 261
+> qplot(x = color, y = price, data = diamonds, geom = 'boxplot')
+> qplot(x = color, y = price, data = diamonds, geom = 'boxplot') + coord_cartesian(ylim = c(0,1000))
+> qplot(x = color, y = price, data = diamonds, geom = 'boxplot') + coord_cartesian(ylim = c(0,10000))
+> qplot(x = color, y = price, data = diamonds, geom = 'boxplot') + coord_cartesian(ylim = c(0,8000))
+> (pf$price, pf$color, summary)
+Error: unexpected ',' in "(pf$price,"
+> by(daimonds$price, diamonds$color, summary)
+Error in by(daimonds$price, diamonds$color, summary) : 
+  object 'daimonds' not found
+> by(diamonds$price, diamonds$color, summary)
+diamonds$color: D
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    357     911    1838    3170    4214   18690 
+----------------------------------------------------------------------------- 
+diamonds$color: E
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    326     882    1739    3077    4003   18730 
+----------------------------------------------------------------------------- 
+diamonds$color: F
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    342     982    2344    3725    4868   18790 
+----------------------------------------------------------------------------- 
+diamonds$color: G
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    354     931    2242    3999    6048   18820 
+----------------------------------------------------------------------------- 
+diamonds$color: H
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    337     984    3460    4487    5980   18800 
+----------------------------------------------------------------------------- 
+diamonds$color: I
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    334    1120    3730    5092    7202   18820 
+----------------------------------------------------------------------------- 
+diamonds$color: J
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    335    1860    4234    5324    7695   18710 
+> qplot(x = cut, y = price, data = diamonds, geom = 'boxplot')
+> qplot(x = cut, y = price, data = diamonds, geom = 'boxplot')
+> 
+> 
+> IQR(subset(diamonds, color = J)$price)
+[1] 4374.25
+> IQR(subset(diamonds, color = E)$price)
+[1] 4374.25
+> IQR(subset(diamonds, color = D)$price)
+[1] 4374.25
+> IQR(subset(diamonds, color = D)$color)
+[1] 3
+> IQR(subset(diamonds, color = J)$color)
+[1] 3
+> IQR(subset(diamonds, color == J)$price)
+Error in eval(expr, envir, enclos) : object 'J' not found
+> IQR(subset(diamonds, color == 'J')$price)
+[1] 5834.5
+> IQR(subset(diamonds, color == 'I')$price)
+[1] 6081.25
+> IQR(subset(diamonds, color == 'H')$price)
+[1] 4996.25
+> IQR(subset(diamonds, color == 'G')$price)
+[1] 5117
+> IQR(subset(diamonds, color == 'F')$price)
+[1] 3886.25
+> IQR(subset(diamonds, color == 'E')$price)
+[1] 3121
+> IQR(subset(diamonds, color == 'D')$price)
+[1] 3302.5
+> qplot(x = color, y = price/carat, data = diamonds, geom = 'boxplot')
+> qplot(x = color, y = price/carat, data = diamonds, geom = 'freqpoly')
+Error : Mapping a variable to y and also using stat="bin".
+  With stat="bin", it will attempt to set the y value to the count of cases in each group.
+  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
+  If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
+  If you want y to represent values in the data, use stat="identity".
+  See ?geom_bar for examples. (Defunct; last used in version 0.9.2)
+> qplot(x = price, data = diamonds, geom = 'freqpoly')
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = price/carat, data = diamonds, geom = 'freqpoly')
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = carat, data = diamonds, geom = 'freqpoly')
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = 200)
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = 10)
+> 
+> 
+> qplot(x = , y = price, data = diamonds, geom = 'boxplot')
+Error: stat_boxplot requires the following missing aesthetics: x
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = 10)
+> qplot(x = carat, data = diamonds, geom = 'freqpoly')
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = 10)
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = 1)
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .1)
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .1)  + scale_x_continuous(limits = c(0,1000), breaks = seq(0,1000,.1))
+Warning message:
+Removed 2 rows containing missing values (geom_path). 
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .1)  + scale_x_continuous(limits = c(0,1000), breaks = seq(0,10,.1))
+Warning message:
+Removed 2 rows containing missing values (geom_path). 
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .1)  + scale_x_continuous(limits = c(0,10), breaks = seq(0,10,.1))
+Warning message:
+Removed 2 rows containing missing values (geom_path). 
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .1)  + scale_x_continuous(limits = c(0,5), breaks = seq(0,10,.1))
+Warning message:
+Removed 2 rows containing missing values (geom_path). 
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .1)  + scale_x_continuous(limits = c(0,5), breaks = seq(0,5,.1))
+Warning message:
+Removed 2 rows containing missing values (geom_path). 
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .1)  + scale_x_continuous(limits = c(0,3), breaks = seq(0,5,.1))
+Warning message:
+Removed 2 rows containing missing values (geom_path). 
+> qplot(x = carat, data = diamonds, geom = 'freqpoly')
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .1)  + scale_x_continuous(limits = c(0,3), breaks = seq(0,5,.1))
+Warning message:
+Removed 2 rows containing missing values (geom_path). 
+> qplot(x = carat, data = diamonds, geom = 'freqpoly', binwidth = .01)  + scale_x_continuous(limits = c(0,3), breaks = seq(0,5,.1))
+Warning message:
+Removed 2 rows containing missing values (geom_path). 
+> qplot(x = carat, y = carat, data = diamonds)
+> qplot(x = carat, y = price, data = diamonds)
+> qplot(x , y = price, data = diamonds)
+> ggplot(aes(x = x, y = friend_count), data = diamonds) + 
++     geom_point()
+Error in eval(expr, envir, enclos) : object 'friend_count' not found
+> ggplot(aes(x = x, y = price), data = diamonds) + 
++     +     geom_point()
+Error in +geom_point() : invalid argument to unary operator
+> ggplot(aes(x = x, y = price), data = diamonds) + 
++     +      geom_point()
+Error in +geom_point() : invalid argument to unary operator
+> ggplot(aes(x = x, y = price), data = diamonds) +     geom_point()
+> summary(diamonds$price)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    326     950    2401    3933    5324   18820 
+> cor(diamonds$price, diamonds$x) 
+[1] 0.8844352
+> cor(diamonds$price, diamonds$y)
+[1] 0.8654209
+> cor(diamonds$price, diamonds$z)
+[1] 0.8612494
+> qplot(x = price , y = depth , data = diamonds, geom = 'boxplot')
+> qplot(x = price , y = depth , data = diamonds)
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++     geom_point()
+> geom_point() + scale_x_continuous(limits = c(0,5), breaks = seq(0,5,.1))
+Error in geom_point() + scale_x_continuous(limits = c(0, 5), breaks = seq(0,  : 
+  non-numeric argument to binary operator
+> geom_point() + scale_x_continuous(limits = c(0,1), breaks = seq(0,100,1))
+Error in geom_point() + scale_x_continuous(limits = c(0, 1), breaks = seq(0,  : 
+  non-numeric argument to binary operator
+> summary(diamonds$price)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    326     950    2401    3933    5324   18820 
+> 
+> 
+> 
+> 
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++   geom_point() + scale_x_continuous(limits = c(0,1), breaks = seq(0,100,1))
+Warning message:
+Removed 53940 rows containing missing values (geom_point). 
+> geom_point() + scale_x_continuous(limits = c(0,1), breaks = seq(0,10000,1))
+Error in geom_point() + scale_x_continuous(limits = c(0, 1), breaks = seq(0,  : 
+  non-numeric argument to binary operator
+> 
+> 
+> ggplot(data = diamonds, aes(x = depth, y = price))
+Error: No layers in plot
+> 
+> 
+> geom_point()
+geom_point: na.rm = FALSE 
+stat_identity:  
+position_identity: (width = NULL, height = NULL)
+> geom_point()
+geom_point: na.rm = FALSE 
+stat_identity:  
+position_identity: (width = NULL, height = NULL)
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++     geom_point()
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++     +  geom_point() + scale_x_continuous(limits = c(0,90), breaks = seq(0,100,2))
+Error in +geom_point() : invalid argument to unary operator
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++     +     +  geom_point() + scale_x_continuous(limits = c(0,100), breaks = seq(0,100,2))
+Error in +geom_point() : invalid argument to unary operator
+> > ggplot(data = diamonds, aes(x = depth, y = price)) + 
+Error: unexpected '>' in ">"
+>     +     geom_point(alpha=0.1)
+Error in +geom_point(alpha = 0.1) : invalid argument to unary operator
+> ggplot(data = diamonds, aes(x = depth, y = price)) +   geom_point(alpha=0.1)
+> ggplot(data = diamonds, aes(x = depth, y = price)) +   geom_point(alpha=0.1) + scale_x_continuous(breaks = seq(0,100,2))
+> cor(price,depth)
+Error in is.data.frame(y) : object 'depth' not found
+> cor(diamonds$price, diamonds$depth)
+[1] -0.0106474
+> cor(diamonds$depth, diamonds$price)
+[1] -0.0106474
+> qplot(x = price < max(price) , y < max(depth) , data = diamonds, geom = 'boxplot')
+> qplot(x = price , y = depth , data = diamonds, geom = 'boxplot')
+> qplot(x = price , y = depth , data = diamonds)
+> qplot(x = price , y = depth , data = diamonds) + xlim(0, quantile(diamonds$price,.90))
+Warning message:
+Removed 5393 rows containing missing values (geom_point). 
+> qplot(x = price < quantile(diamonds$price,.90) , y = depth  <  quantile(diamonds$depth,.90), data = diamonds)
+> qplot(x = (price < quantile(diamonds$price,.90)) , y = (depth  <  quantile(diamonds$depth,.90)), data = diamonds)
+Error in sprintf(gettext(fmt, domain = domain), ...) : 
+  invalid type of argument[1]: 'symbol'
+> qplot((price < quantile(diamonds$price,.90)) , (depth  <  quantile(diamonds$depth,.90)), data = diamonds)
+Error in sprintf(gettext(fmt, domain = domain), ...) : 
+  invalid type of argument[1]: 'symbol'
+> 
+> 
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++     geom_point(fun.y = quantile, probs = .1)
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++     +     geom_point(fun.y = quantile, probs = .1)+ geom_point(fun.x = quantile, probs = .1)
+Error in +geom_point(fun.y = quantile, probs = 0.1) : 
+  invalid argument to unary operator
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++     geom_point(fun.y = quantile, probs = .1)+ geom_point(fun.x = quantile, probs = .1)
+> ggplot(data = diamonds, aes(x = depth, y = price)) + 
++     geom_point(fun.y = quantile, probs = .9)+ geom_point(fun.x = quantile, probs = .9)
+> qplot(x = price , y = depth , data = diamonds)
+> qplot(x < quantile(diamonds$price,c(.99)) , y = quantile(diamonds$depth,c(.99)) , data = diamonds)
+Warning message:
+In data.frame(x = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,  :
+  row names were found from a short variable and have been discarded
+> qplot(x < quantile(diamonds$price,c(.99)) , y < quantile(diamonds$depth,c(.99)) , data = diamonds)
+> quantile(diamonds$price,c(.99)
++ 
++ 
+> 
+> quantile(diamonds$price,c(.99))
+     99% 
+17378.22 
+> quantile(diamonds$price,(.99))
+     99% 
+17378.22 
+> 2* quantile(diamonds$price,c(.99))
+     99% 
+34756.44 
+> quantile(diamonds$depth,(.99))
+ 99% 
+65.6 
+> qplot(x < 17378.22, y < 65.6 , data = diamonds)
+> qplot(x = (price < 17378.22), y = (depth < 65.6) , data = diamonds)
+Error in sprintf(gettext(fmt, domain = domain), ...) : 
+  invalid type of argument[1]: 'symbol'
+> load("~/Udacity HW 4/P00000001-ALL.csv")
+Error: bad restore file magic number (file may be corrupted) -- no data loaded
+In addition: Warning message:
+file ‘P00000001-ALL.csv’ has magic number 'cmte_'
+  Use of save versions prior to 2 is deprecated 
+> names( ‘P00000001-ALL.csv’)
+Error: unexpected input in "names( ‘"
+> names(diamonds)
+ [1] "carat"   "cut"     "color"   "clarity" "depth"   "table"   "price"   "x"       "y"      
+[10] "z"      
+> names(cmte_)
+Error: object 'cmte_' not found
+> names('cmte_')
+NULL
+> save.image("~/Udacity HW 4/r problem sets.RData")
+> setwd("~/Udacity HW 4")
+> names(P00000001-ALL)
+Error: object 'P00000001' not found
+> names('P00000001-ALL'')
++ 
+
+> 
+
+> names('P00000001-ALL')
+NULL
+> names('P00000001-ALL.csv')
+NULL
+> names(P00000001-ALL.csv
++ 
+
+> 
+
+> names(P00000001-ALL.csv)
+Error: object 'P00000001' not found
+> EData <- read.csv('P00000001-ALL.csv')
+Error in read.table(file = file, header = header, sep = sep, quote = quote,  : 
+  duplicate 'row.names' are not allowed
+> names(EDAta)
+Error: object 'EDAta' not found
+> EData <- read.csv('Election_Data_Edited.csv')
+> View(EData)
+> View(EData)
+> View(EData)
+> names(EData)
+ [1] "cmte_id"           "cand_id"           "cand_nm"           "contbr_nm"        
+ [5] "contbr_city"       "contbr_st"         "contbr_zip"        "contbr_employer"  
+ [9] "contbr_occupation" "contb_receipt_amt" "contb_receipt_dt"  "receipt_desc"     
+[13] "memo_cd"           "memo_text"         "form_tp"           "file_num"         
+[17] "tran_id"           "election_tp"      
+> qplot(x = "cand_nm", data = diamonds)
+> qplot(x = "cand_nm", data = EData)
+> qplot(x = "contb_receipt_dt", data = EData)
+> qplot(x = "contb_receipt_dt", data = EData, binwidth = 1)
+> ggplot(data = EDATA, aes(x = contb_receipt_dt, y = contb_receipt_amt)) + 
++     +     geom_point()
+Error in ggplot(data = EDATA, aes(x = contb_receipt_dt, y = contb_receipt_amt)) : 
+  object 'EDATA' not found
+> ggplot(data = EData, aes(x = contb_receipt_dt, y = contb_receipt_amt)) + 
++         geom_point()
+> ggplot(data = EData, aes(x = contb_receipt_dt, y = contb_receipt_amt > 0)) + 
++     +         geom_point()
+Error in +geom_point() : invalid argument to unary operator
+> ggplot(data = EData, aes(x = contb_receipt_dt, y = contb_receipt_amt > 0)) +         geom_point()
+> ggplot(data = subset(EData,contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt +         geom_point()
++ 
++ 
++ 
++ 
++ 
+
+> ggplot(data = subset(EData,contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt) +         geom_point
++ 
+
+> 
+
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt)) +         geom_point()
+> ggsave('contributionsbydate.png')
+Saving 9.94 x 6.1 in image
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt)) +         geom_bar()
+Error : Mapping a variable to y and also using stat="bin".
+  With stat="bin", it will attempt to set the y value to the count of cases in each group.
+  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
+  If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
+  If you want y to represent values in the data, use stat="identity".
+  See ?geom_bar for examples. (Defunct; last used in version 0.9.2)
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = sum(contb_receipt_amt)) +         geom_bar()
++ 
+
+> 
+
+> > ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = sum(contb_receipt_amt)) +         geom_bar()
+Error: unexpected '>' in ">"
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = sum(contb_receipt_amt)) +         geom_bar()
++ 
+
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = sum(contb_receipt_amt))) + geom_bar()
+Error : Mapping a variable to y and also using stat="bin".
+  With stat="bin", it will attempt to set the y value to the count of cases in each group.
+  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
+  If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
+  If you want y to represent values in the data, use stat="identity".
+  See ?geom_bar for examples. (Defunct; last used in version 0.9.2)
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity")
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + scale_x_continuous(limits = c(0,200,000,000), breaks = seq(0,200,000,000,50000000))
+Error in seq.default(0, 200, 0, 0, 5e+07) : too many arguments
+> options(scipen=10000)
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + scale_x_continuous(limits = c(0,200,000,000), breaks = seq(0,200,000,000,50000000))
+Error in seq.default(0, 200, 0, 0, 50000000) : too many arguments
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity")
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt), pch = 19) + geom_bar(stat = "identity")
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt), pch = 9) + geom_bar(stat = "identity")
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt), pch = 1) + geom_bar(stat = "identity")
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt), pch = 1) + geom_bar(stat = "identity")+ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt), pch = 1) + geom_bar(stat = "identity")
+Error in p + o : non-numeric argument to binary operator
+In addition: Warning message:
+Incompatible methods ("+.gg", "Ops.data.frame") for "+" 
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") 
+> ggplot(data = EData, aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size=20),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = EData, aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 9),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = EData, aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 15),axis.text.x = element_text(angle=45, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = EData, aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggsave('Total Contributions.png')
+Saving 9.94 x 6.1 in image
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = EData, aes(x = contrb_st, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+Error in eval(expr, envir, enclos) : object 'contrb_st' not found
+> ggplot(data = EData, aes(x = contbr_st, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggsave('Total Contributions by State.png')
+Saving 9.94 x 6.1 in image
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = EData, aes(x = contbr_st, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 10),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggsave('Total Contributions by State.png')
+Saving 9.94 x 6.1 in image
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(subset(data = EData,contrb_occupation = "retired"), aes(x = contbr_st, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+Error in nrow(x) : argument "x" is missing, with no default
+> ggplot(data = subset(data = EData,contrb_occupation = "retired"), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 10),axis.text.x = element_text(angle=90, vjust=1)) 
+Error in nrow(x) : argument "x" is missing, with no default
+> ggplot(data = EData), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 10), axis.text.x = element_text(angle=90, vjust=1)) 
+Error: unexpected ',' in "ggplot(data = EData),"
+> ggplot(data = EData, aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = subset(EData, contbr_occupation = "RETIRED" ), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = subset(EData, contbr_occupation = RETIRED ), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = subset(EData, contbr_occupation = 'RETIRED'), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = subset(EData, contbr_occupation == 'RETIRED'), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1))
+Warning message:
+Stacking not well defined when ymin != 0 
+> ggplot(data = subset(EData, contbr_occupation %in% c('RETIRED', 'RETIERD'), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1))
++ 
+
+> 
+
+> ggsave("Retired contributions by candidate")
+Saving 9.94 x 6.1 in image
+Error in get(as.character(FUN), mode = "function", envir = envir) : 
+  object 'retired contributions by candidate' of mode 'function' was not found
+> ggsave("Retired contributions by candidate.png")
+Saving 9.94 x 6.1 in image
+Warning message:
+Stacking not well defined when ymin != 0 
+> qplot(x = contb_receipt_dt, data = EData, binwidth = 10) +facet_wrap(~cut)
+Error in layout_base(data, vars, drop = drop) : 
+  At least one layer must contain all variables used for facetting
+> qplot(x = contb_receipt_dt, data = EData, binwidth = 10) +facet_wrap(~cand_nm)
+> qplot(x = contb_receipt_dt, data = EData, binwidth = 60) +facet_wrap(~cand_nm)
+> qplot(x = contb_receipt_dt, data = EData, binwidth = 1000) +facet_wrap(~cand_nm)
+> qplot(x = contb_receipt_dt, data = EData, binwidth = 1000) +facet_wrap(~cand_nm, scales = "free_y")
+> ggsave("contributions over time.png")
+Saving 9.94 x 6.1 in image
+> qplot(x = contb_receipt_dt, data = EData, binwidth = 1000) +facet_wrap(~cand_nm, scales = "free_y",stat = "identity" )
+Error in facet_wrap(~cand_nm, scales = "free_y", stat = "identity") : 
+  unused argument (stat = "identity")
+> ggplot(EDAta, aes(x = contb_reciept_dt, y = contb_reciept_amt )) + geom_point() + stat_sum(aes(group = 1))
+Error in ggplot(EDAta, aes(x = contb_reciept_dt, y = contb_reciept_amt)) : 
+  object 'EDAta' not found
+> ggplot(EDAta, aes(x = contb_reciept_dt, y = contb_reciept_amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y",stat = "identity" )
+Error in ggplot(EDAta, aes(x = contb_reciept_dt, y = contb_reciept_amt)) : 
+  object 'EDAta' not found
+> ggplot(EData, aes(x = contb_reciept_dt, y = contb_reciept_amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y",stat = "identity" )
+Error in facet_wrap(~cand_nm, scales = "free_y", stat = "identity") : 
+  unused argument (stat = "identity")
+> ggplot(EData, aes(x = contb_reciept_dt, y = contb_reciept_amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y" )
+Error in eval(expr, envir, enclos) : object 'contb_reciept_dt' not found
+> ggplot(EData, aes(x = contb_receipt_dt, y = contb_reciept_amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y" )
+Error in eval(expr, envir, enclos) : object 'contb_reciept_amt' not found
+> ggplot(EData, aes(x = contb_receipt_dt, y = contb_receipt__amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y" )
+Error in eval(expr, envir, enclos) : 
+  object 'contb_receipt__amt' not found
+> ggplot(EData, aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y" )
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y" )
+> ggsave("contributions by amount over time.png")
+Saving 9.94 x 6.1 in image
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point(alpha = .1 ) + facet_wrap(~cand_nm, scales = "free_y" )
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point(alpha = .1 ) + facet_wrap(~cand_nm)
+> ggsave(FreeYscale Contirubtion mount per Candidate)
+Error: unexpected symbol in "ggsave(FreeYscale Contirubtion"
+> ggsave("FreeYscale Contirubtion mount per Candidate.png")
+Saving 9.94 x 6.1 in image
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point(alpha = .1 ) + facet_wrap(~cand_nm) + scale_y_continuous(breaks = seq(0,8000,1000))
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point(alpha = .1 ) + facet_wrap(~cand_nm) + (limits = c(0,8000), breaks = seq(0,8000,1000))
+Error: unexpected ',' in "ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point(alpha = .1 ) + facet_wrap(~cand_nm) + (limits = c(0,8000),"
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point() + facet_wrap(~cand_nm, scales = "free_y" )
+> ggplot(data = subset(EData, contb_receipt_amt >= 0 ), aes(x = contb_receipt_dt, y = contb_receipt_amt )) + geom_point() + facet_wrap(~contbr_st, scales = "free_y" )
+> ggsave(FreeYscale Contirubtion mount per Candidate)
+Error: unexpected symbol in "ggsave(FreeYscale Contirubtion"
+> ggsave("Contribituions over time per state.png")
+Saving 9.94 x 6.1 in image
+> var<-ggplot(EData, aes(x = contb_receipt_dt, y =  contb_receipt_amt))
+> var + geom_line(stat = 'identity')
+> ggplot(EData, aes(contb_receipt_dt, fill=variable)) + 
++     geom_bar(binwidth=100,aes(weight=value),position="dodge") + 
++     scale_x_datetime(limits=c(min(tdf$contb_receipt_dt), max(tdf$contb_receipt_dt))) + 
++     facet_wrap(~variable)
+Error in continuous_scale(aesthetics, "datetime", identity, breaks = breaks,  : 
+  object 'tdf' not found
+> ggplot(EData, aes(contb_receipt_dt, fill=variable)) + 
++          geom_bar(binwidth=100,aes(weight=value),position="dodge") + 
++          scale_x_datetime(limits=c(min(EData$contb_receipt_dt), max(EData$contb_receipt_dt))) + 
++          facet_wrap(~variable)
+Error in Summary.factor(c(247L, 253L, 239L, 100L, 206L, 270L, 253L, 61L,  : 
+  ‘min’ not meaningful for factors
+> ggplot(EData, aes(contb_receipt_dt, fill=variable)) + 
++     +          geom_bar(binwidth=100,aes(weight=value),position="dodge") + 
++               facet_wrap(~variable)
+Error in +geom_bar(binwidth = 100, aes(weight = value), position = "dodge") : 
+  invalid argument to unary operator
+> ggplot(EData, aes(contb_receipt_dt)) + 
++               geom_bar(binwidth=100,aes(weight=value),position="dodge") + 
++               scale_x_datetime(limits=c(min(EData$contb_receipt_dt), max(EData$contb_receipt_dt))) + 
++               facet_wrap(~variable)
+Error in Summary.factor(c(247L, 253L, 239L, 100L, 206L, 270L, 253L, 61L,  : 
+  ‘min’ not meaningful for factors
+> ggplot(EData, aes(x= contb_receipt_dt, y=cumsum(contb_receipt_amt))) + geom_line() + geom_point()
+> ggplot(EData, aes(x= contb_receipt_dt, y=cumsum(contb_receipt_amt))) + geom_line()
+> ggplot(EData, aes(x= 1:5 y=cumsum(contb_receipt_amt))) + geom_line()
+Error: unexpected symbol in "ggplot(EData, aes(x= 1:5 y"
+> ggplot(EData, aes(x= 1:5, y=cumsum(contb_receipt_amt))) + geom_line()
+Error: Aesthetics must either be length one, or the same length as the dataProblems:1:5
+> ggplot(df, aes(x=1:5, y=cumsum(contb_receipt_amt))) + geom_line() + geom_point()
+Error: ggplot2 doesn't know how to deal with data of class function
+> plot(cumsum(contb_receipt_amt), main="Number of heads flipped over time",ylab="Number of heads")
+Error in plot(cumsum(contb_receipt_amt), main = "Number of heads flipped over time",  : 
+  object 'contb_receipt_amt' not found
+> plot(cumsum(EData$contb_receipt_amt), main="Number of heads flipped over time",ylab="Number of heads")
+> 2*2
+[1] 4
+> plot(cumsum(EData$contb_receipt_amt), main="Total Contributor Amount by Data",ylab="Date October 13 - Sep 15")
+> plot((cumsum(EData$contb_receipt_amt)/1000000), main="Total Contributor Amount by Date",ylab="Total$ amount in Millions )
++ 
++ 
++ 
++ 
+
+> plot((cumsum(EData$contb_receipt_amt)/1000000), main="Total Contributor Amount by Date",ylab="Total$ amount in Millions" )
+> axis(1, at=1:10, labels=letters[1:10])
+> 
+> 
+> 
+> 
+> plot((cumsum(EData$contb_receipt_amt)/1000000), main="Total Contributor Amount by Date",ylab="Total$ amount in Millions" )
+> axis(1, at=1:10, labels=letters[1:10])
+> 
+> plot((cumsum(EData$contb_receipt_amt)/1000000), main="Total Contributor Amount by Date",ylab="Total$ amount in Millions" ) +axis(1, at=1:10, labels=letters[1:10])
+numeric(0)
+> plot((cumsum(EData$contb_receipt_amt)/1000000), main="Total Contributor Amount by Date",ylab="Total$ amount in Millions" ) +axis(1, at=1:3, labels= [1,2,3])
+Error: unexpected '[' in "plot((cumsum(EData$contb_receipt_amt)/1000000), main="Total Contributor Amount by Date",ylab="Total$ amount in Millions" ) +axis(1, at=1:3, labels= ["
+> plot((cumsum(EData$contb_receipt_amt)/1000000), main="Total Contributor Amount by Date",ylab="Total$ amount in Millions" ) +axis(1, at=1:3, labels= [1,2,3])
+Error: unexpected '[' in "plot((cumsum(EData$contb_receipt_amt)/1000000), main="Total Contributor Amount by Date",ylab="Total$ amount in Millions" ) +axis(1, at=1:3, labels= ["
+> plot(1:10, xaxt = "n", xlab='Some Letters')
+> +axis(1, at=[1:10, labels=letters[1:10])
+Error: unexpected '[' in "+axis(1, at=["
+> plot(EData$contb_receipt_amt,EData$contb_receipt_DT)
+> plot(EData$contb_receipt_DT, cumsum(EData$contb_receipt_amt)/1000000))
+Error: unexpected ')' in "plot(EData$contb_receipt_DT, cumsum(EData$contb_receipt_amt)/1000000))"
+> plot(EData$contb_receipt_DT, cumsum(EData$contb_receipt_amt)/1000000)))
+Error: unexpected ')' in "plot(EData$contb_receipt_DT, cumsum(EData$contb_receipt_amt)/1000000))"
+> plot(EData$contb_receipt_DT, cumsum(EData$contb_receipt_amt)/1000000)
+Error in xy.coords(x, y, xlabel, ylabel, log) : 
+  'x' and 'y' lengths differ
+> plot(EData$contb_receipt_DT, cumsum(EData$contb_receipt_amt))
+Error in xy.coords(x, y, xlabel, ylabel, log) : 
+  'x' and 'y' lengths differ
+> count(EData$contb_receipt_DT)
+Error: could not find function "count"
+> table(EData$contb_receipt_DT)
+< table of extent 0 >
+> ggplot(EData, aes(x=EData$contb_receipt_DT , y=cumsum(EData$contb_receipt_amt)) + geom_line()
++ 
+
+> ggplot(EData, aes(x=EData$contb_receipt_DT , y=cumsum(EData$contb_receipt_amt))) + geom_line()
+
+
+
+# Percentages for all States
+
+
+States <- unique(EData$contbr_st)
+CandNM <- unique(EData$cand_nm)
+SuperStateDF <- data.frame(CityDF2$Category)
+ for(i in States){
+     StateDF <- subset(EData, contbr_st == i)
+     StateDF2 <-aggregate(StateDF$contb_receipt_amt, by=list(Category=StateDF$cand_nm), FUN=sum)
+     
+     notIn <- subset(CandNM, !(CandNM %in% StateDF2$Category))
+     for(j in notIn) {
+       newRow = c(j,0)
+       StateDF2 = rbind(StateDF2, newRow)
+       
+     }
+     
+     StateDF2 <- with(StateDF2, StateDF2[order(Category, x),])
+     StateDF2$x <-as.numeric(StateDF2$x)
+     SuperStateDF[[paste(i)]] <- StateDF2$x/Ed$x
+     
+ }
+SuperStateDF$Total_Cand_contributions
+
+
+
+
+
+
+
+---
+title: "Udacity HW#4"
+output: html_document
+---
+
+I went over the 2015 Election Data and made several interesting observations about the data. First however, the data needed to be loaded, using this code:
+
+```{r}
+EData <- read.csv("~/Udacity HW 4/Election_Data_Edited.csv")
+library("ggplot2")
+
+```
+
+Next I decided to make a Bar Chart. This was a fairly easy graph to make and shows you one of the reasons why Hilary Clinton is the favorite to win the election. It shows her dominating the rest of the field with over $60,000,000  Raised. The next closet is Jeb Bush with over $20 Milllion raised. 
+
+It gave me a warning message that the stacking was not well defined when ymin does not equal 0, but the totals added up to my test calculations with excel so I decided to trust it. 
+
+
+```{r, echo=FALSE}
+EData <- read.csv("~/Udacity HW 4/Election_Data_Edited.csv")
+library("ggplot2")
+ ggplot(data = EData, aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1))
+```
+
+Then I made the same graph but did it per state, unsurprisingly California is in the lead as California has the largest total population. Followed by Texas, then New york. 
+
+```{r, echo=FALSE}
+EData <- read.csv("~/Udacity HW 4/Election_Data_Edited.csv")
+library("ggplot2")
+ ggplot(data = EData, aes(x = contbr_st, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1)) 
+
+```
+
+This graph shows retired contribtions per candidate. Hilary is again in the lead. However, it is important to note that she also has the highest total contribution amount, so she might not have the highest proportion of retired contriubtions.  
+
+```{r, echo=FALSE}
+EData <- read.csv("~/Udacity HW 4/Election_Data_Edited.csv")
+library("ggplot2")
+   ggplot(data = subset(EData, contbr_occupation == 'RETIRED'), aes(x = cand_nm, y = contb_receipt_amt)) + geom_bar(stat = "identity") + theme(text = element_text(size= 13),axis.text.x = element_text(angle=90, vjust=1))
+
+```
+
+Bivariate Section
+
+Continuing with the theme of retired persons affect on the campaign contributions, I decided to do a scatter plot of the percent of contributions which comes from retired persons, and  the Total Contributions which go to each candidate to see if there is a pattern. 
+
+```{r, echo=FALSE}
+#This Adds the total contributions per candidate to my df2 data frame
+df2$Total_Contributions <- Ed$x
+   
+ggplot(df2, aes( percent, Total_Contributions)) + geom_point(size = 3)
+
+```
+
+This plot was skewed by Hilary's dominating contriubtion total, but there may be a correlation.
+
+
+
+
+Here is the graph again with Hilary removed and and with a line of best fit drawn in. 
+ 
+
+```{r, echo=FALSE}
+p <- ggplot(subset(df2, Total_Contributions < 60000000), aes( percent, Total_Contributions))
+p + geom_point(size = 3) + geom_abline(intercept = 2434828 , slope = 19594068  )
+```
+
+The line is fairly flat and the data is spread out. It doesn't look like the percent of Total_Contribution from retired persons correlates strongly. 
+
+
+
+
+I then decided to look at Washington D.C's influence on the election
+Like the retired plot I made a bar graph showing the percent of contirubtion total which comes from Washington D.C
+
+```{r, echo=FALSE}
+CityDF <- subset(EData, contbr_st == 'DC')
+CityDF2 <-aggregate(CityDF$contb_receipt_amt, by=list(Category=CityDF$cand_nm), FUN=sum)
+# Three candidates had $0 of contributions from WASHINGTON DC
+newRow = c("Jindal, Bobby",0)
+CityDF2 = rbind(CityDF2, newRow)
+newRow = c("Perry, James R. (Rick)",0)
+CityDF2 = rbind(CityDF2, newRow)
+newRow = c("Huckabee, Mike",0)
+CityDF2 = rbind(CityDF2, newRow)
+CityDF2 <- with(CityDF2, CityDF2[order(Category, x),])
+CityDF2$x <-as.numeric(CityDF2$x)
+
+#Adds in the total_contributions
+CityDF2$Total_Contributions <- Ed$x
+CityDF2$percent <- CityDF2$x/Ed$x
+p <-ggplot(data = CityDF2, aes(x = Category, y = percent)) 
+
+p  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))+ labs(title = "Poritons of Total $ Contributions From Wahington DC")  + xlab("") + ylab("")
+
+#
+```
+
+I created a graph that looks at the percent of contributions from DC with the total donations overall
+
+```{r, echo=FALSE}
+p <- ggplot(CityDF2, aes( percent, Total_Contributions))
+p + geom_point(size = 3) + geom_abline(intercept = -88231.64 , slope = 677052822.47  )
+
+```
+There looks to be a stronger correlation with percent of contriubtions from Washignton DC then with retired persons, with every extra .01 % from Washington DC leading to an expected increase of around $7M in total contributions. The rsquared here isn't too high
+
+```{r, echo=FALSE}
+DCCorr.lm <- lm(Total_Contributions ~ percent, data =CityDF2)
+summary(DCCorr.lm)$r.squared 
+
+```
+But is not weak enough to be dicounted completely. I think it is fairly likely that percent of contriubtions coming from Wahington DC are likely to predict larger total contributions 
+
+
+
+Now I will try to see DC's influence compared with other States. First, here is a scatter plot showing what percent of each candidates money comes from every state. For instance, 60% of Chris Christie's money comes from his native New Jersey, as indicated by the larger dot. I limited the data to state values which make over 1.5% of the value for that candidate to help with readablity. 
+
+```{r, echo=FALSE}
+# first I will consturct a dataframe with all the percentiles of Total_contribution for each candidate for each state
+States <- unique(EData$contbr_st)
+CandNM <- unique(EData$cand_nm)
+SuperStateDF <- data.frame(CityDF2$Category)
+ for(i in States){
+     StateDF <- subset(EData, contbr_st == i)
+     StateDF2 <-aggregate(StateDF$contb_receipt_amt, by=list(Category=StateDF$cand_nm), FUN=sum)
+     
+     notIn <- subset(CandNM, !(CandNM %in% StateDF2$Category))
+     for(j in notIn) {
+       newRow = c(j,0)
+       StateDF2 = rbind(StateDF2, newRow)
+       
+     }
+     
+     StateDF2 <- with(StateDF2, StateDF2[order(Category, x),])
+     StateDF2$x <-as.numeric(StateDF2$x)
+     SuperStateDF[[paste(i)]] <- StateDF2$x/Ed$x
+     
+ }
+
+SuperStateDF2 <- data.frame(State=factor(),
+                            Cand_NM=factor(),
+                            Perc_Of_State_per_cand =numeric())
+
+for (i in States){
+  countVar = 0
+  for(j in unique(SuperStateDF$CityDF2.Category)) {
+  countVar =  countVar + 1
+  percentValue <- SuperStateDF[countVar, i]
+  newDF = data.frame(State = c(i), Cand_NM = c(j), Perc_Of_State_per_cand = c(percentValue ))
+  
+  SuperStateDF2 <- rbind(SuperStateDF2, newDF)}
+  }
+  
+
+
+
+p <- ggplot(subset(SuperStateDF2,Perc_Of_State_per_cand > .015 ), aes( x =State,  y = Cand_NM))
+q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(2, 4))
+q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+
+
+
+```{r, echo=FALSE}
+
+rSquaredDF <- data.frame(State=factor(),
+                            RSquared=numeric())
+for(i in unique(EData$contbr_st)){
+  
+  
+  DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ Perc_Of_State_per_cand ,data = subset(SuperStateDF2,State == i ))
+  r2Score <- summary(DCCorr.lm)$r.squared  
+  RRowDF <- data.frame(State = c(i), RSquared = c(r2Score))
+  rSquaredDF <- rbind(RRowDF, rSquaredDF)
+}
+
+p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = State))
+p  + geom_bar(stat = "identity")
+         
+       
+```
+
+Here we can see that the DC area is by far the most influential State/Region which would make sense as it is the center of politics in the United States, and someone with the support of those with money in DC would likely have connections to donors all over the country. I limited the values shown to RSquared values over .05.
+
+
+Maybe there are some more concentrated Areas of infulence. I will now do the same process but for zip codes
+
+```
+
+
+
+
+
+Here is a graph of total contriubtions for Hilary alone per month. You can see fairly steady growth most of the way through the year. 
+
+```{r, echo=FALSE}
+   library(scales)
+ Through_September_2015<-as.Date(EData$contb_receipt_dt, format = "%m/%d/%Y")
+ CandDataFrame = data.frame(Date = Through_September_2015, Amount =EData$contb_receipt_amt, Name = EData$cand_nm)
+ TrsCandDataFrame <- transform(CandDataFrame, cumsum = ave(Amount, Name, FUN = cumsum))
+  hil <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" ,  ]
+   ggplot(data = hil, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line(size = 1) + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30")), labels = date_format("%b")) + labs(title = "Total $ Recieved for Top 8 Candidates by Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+
+```
+Final Plots and Summary
+
+Plot One:
+
+```{r, echo=FALSE}
+ Ed <- aggregate(EData$contb_receipt_amt, by=list(Category=EData$cand_nm), FUN=sum)
+ df1 <- subset(EData, contbr_occupation == 'RETIRED')
+ df2<- aggregate(df1$contb_receipt_amt, by=list(Category=df1$cand_nm), FUN=sum) 
+ df2$percent <- df2$x/Ed$x
+ ggplot(data = df2, aes(x = Category, y = percent))  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))+ labs(title = "Poritons of Total $ Contributions From Retired Persons")  + xlab("") + ylab("")
+
+```
+
+Description One:
+This graph is a simple Bar-Graph which shows the amount raised by Each Candidate. As you can see Hilary is outstripping the competition by almost 3x her nearest competitor Jeb Bush. 
+
+
+Plot Two:
+
+```{r, echo=FALSE}
+ df1 <- subset(EData, contbr_occupation == 'RETIRED')
+ df2<- aggregate(df1$contb_receipt_amt, by=list(Category=df1$cand_nm), FUN=sum) 
+ df2$percent <- df2$x/Ed$x
+ ggplot(data = df2, aes(x = Category, y = percent))  + geom_bar(stat = "identity") + theme(text = element_text(size= 13), axis.text.x = element_text(angle=90, vjust=1))+ labs(title = "Poritons of Total $ Contributions From Retired Persons")  + xlab("") + ylab("")
+
+```
+
+This graph shows the portion of retired persons who make up their total contriubtion base. Ben Carson has the highest portion with almost 30% of his contributions coming from retired persons. Donald Trump and Carly Fiorina are nex at above 25% of the contriubtions coming from the retired.
+
+Plot Three:
+
+```{r, echo=FALSE}
+   library(scales)
+ Through_September_2015<-as.Date(EData$contb_receipt_dt, format = "%m/%d/%Y")
+ CandDataFrame = data.frame(Date = Through_September_2015, Amount =EData$contb_receipt_amt, Name = EData$cand_nm)
+ TrsCandDataFrame <- transform(CandDataFrame, cumsum = ave(Amount, Name, FUN = cumsum))
+ top8 <- TrsCandDataFrame[TrsCandDataFrame$Name == "Clinton, Hillary Rodham" |  TrsCandDataFrame$Name == "Sanders, Bernard" |  TrsCandDataFrame$Name == "Cruz, Rafael Edward 'Ted'" |  TrsCandDataFrame$Name == "Bush, Jeb" |  TrsCandDataFrame$Name == "Walker, Scott" |  TrsCandDataFrame$Name == "Carson, Benjamin S."|  TrsCandDataFrame$Name == "Rubio, Marco" | TrsCandDataFrame$Name == "Fiorina, Carly" ,  ] 
+ 
+ 
+   ggplot(data = top8, aes(x= Date , y= cumsum/1000000, colour = Name)) + geom_line(size = 1) + scale_x_date(breaks =(by = ("months")) ,limits = c(as.Date("2015-01-01"), as.Date("2015-09-30")), labels = date_format("%b")) + labs(title = "Total $ Recieved for Top 8 Candidates by Date") + xlab("January - October 2015") + ylab("Total Recieved in Millions")
+ 
+ 
+   
+
+```
+
+Description Three:
+
+This graph shows the top 8 eight candidates by there campaign contributions over time. The jump on July 1 was due to the end of the campaign rebate program, which was depressing the overall amount of money given to each candidate.
+
+
+Reflections:
+
+
+The data provided many interesting insights on the election. The first is that Hilary is dominating in the democratic polls for a reason. She has taken far more money in then any other candidate, and that should really help her hold off Bernie Sanders and help tremendously with the genereal election as well. 
+
+It was also interesting that the candidates with the highest level of retired support were the three outisiders on the republican side, Carly Fiorina, Donald Trump and Ben Carson. This indicates that retired persons are likely very disastisfied with the Republican establishment. 
+
+It is important to note that these amounts only cover the money going to the candidates themselves. The candidates also have super-pacs which they are not officially allowed to control. These superpacs are allowed to take unlimited amount of campaign contributions and as a result often have even more money then the individual campaigns.
+
+
+
+
+> View(SuperStateDF2)
+> SuperStateDF2 <- data.frame(State=character(),
++                             Cand_NM=character(),
++                             Perc_Of_State_per_cand =numeric())
+> newRow = c("c",  "Trump, Donald J.", "0")
+> SuperStateDF2 <- rbind(SuperStateDF2,newRow)
+> View(SuperStateDF2)
+> View(StateDF2)
+> SuperStateDF2 <- data.frame(State=character(),
++                             Cand_NM=character(),
++                             Perc_Of_State_per_cand =numeric())
+> View(SuperStateDF2)
+> SuperStateDF2 = rbind(SuperStateDF2,newRow)
+> View(SuperStateDF2)
+> SuperStateDF2 <- data.frame(State=character(),
++                             Cand_NM=character(),
++                             Perc_Of_State_per_cand =numeric())
+> SuperStateDF2 <- rbind(SuperStateDF2,newRow)
+> View(SuperStateDF2)
+> SuperStateDF2 <- data.frame(State=factor(),
++                             Cand_NM=factor(),
++                             Perc_Of_State_per_cand =numeric())
+> View(SuperStateDF2)
+> SuperStateDF2 <- rbind(SuperStateDF2,newRow)
+> View(SuperStateDF2)
+> View(SuperStateDF2)
+> newRow = c(State ="c",  Cand_NM = "Trump, Donald J.", Perc_Of_State_per_cand = 0)
+> SuperStateDF2 <- data.frame(State=factor(),
++                             Cand_NM=factor(),
++                             Perc_Of_State_per_cand =numeric())
+> SuperStateDF2 <- rbind(SuperStateDF2,newRow)
+> View(SuperStateDF2)
+> View(SuperStateDF2)
+> newDf <- data.frame( State =c("c"),  Cand_NM = c("Trump, Donald J."), Perc_Of_State_per_cand = c(0))
+> library(gtools)
+Error in library(gtools) : there is no package called ‘gtools’
+> SuperStateDF2 <- rbind(SuperStateDF2,newDf)
+Error in match.names(clabs, names(xi)) : 
+  names do not match previous names
+> View(newDf)
+> View(SuperStateDF2)
+> SuperStateDF2 <- data.frame(State=actor(),
++                             Cand_NM=factor(),
++                             Perc_Of_State_per_cand =numeric())
+Error in data.frame(State = actor(), Cand_NM = factor(), Perc_Of_State_per_cand = numeric()) : 
+  could not find function "actor"
+> SuperStateDF2 <- data.frame(State=factor(),
++                             Cand_NM=factor(),
++                             Perc_Of_State_per_cand =numeric())
+> SuperStateDF2 <- rbind(SuperStateDF2,newDf)
+> View(SuperStateDF2)
+> SuperStateDF2 <- data.frame(State=factor(),
++                             Cand_NM=factor(),
++                             Perc_Of_State_per_cand =numeric())
+> 
+> for (i in States){
++     countVar = 0
++     for(j in unique(SuperStateDF$CityDF2.Category)) {
++         countVar =  1
++         percentValue <- SuperStateDF[countVar, i]
++         newDF = data.frame(State = c(i), Cand_NM = c(j), Perc_Of_State_per_cand = c(percentValue ))
++         
++         SuperStateDF2 <- rbind(SuperStateDF2, newDF)}
++ }
+> View(SuperStateDF2)
+> p <- ggplot(SuperStateDF2, aes( State, CandNM)) 
+> p  +geom_point(aes(size = Perc_Of_State_per_cand)) +
++     scale_size_continuous(range = c(3, 7))
+Error: Aesthetics must either be length one, or the same length as the dataProblems:CandNM
+> for (i in States){
++     countVar = 0
++     for(j in unique(SuperStateDF$CityDF2.Category)) {
++         countVar =  countvar + 1
++         percentValue <- SuperStateDF[countVar, i]
++         newDF = data.frame(State = c(i), Cand_NM = c(j), Perc_Of_State_per_cand = c(percentValue ))
++         
++         SuperStateDF2 <- rbind(SuperStateDF2, newDF)}
++ }
+Error: object 'countvar' not found
+> SuperStateDF2 <- data.frame(State=factor(),
++                             Cand_NM=factor(),
++                             Perc_Of_State_per_cand =numeric())
+> 
+> for (i in States){
++     countVar = 0
++     for(j in unique(SuperStateDF$CityDF2.Category)) {
++         countVar =  countVar + 1
++         percentValue <- SuperStateDF[countVar, i]
++         newDF = data.frame(State = c(i), Cand_NM = c(j), Perc_Of_State_per_cand = c(percentValue ))
++         
++         SuperStateDF2 <- rbind(SuperStateDF2, newDF)}
++ }
+> View(SuperStateDF2)
+> p <- ggplot(SuperStateDF2, aes( State, CandNM)) 
+> p  +geom_point(aes(size = 3))
+Error: Aesthetics must either be length one, or the same length as the dataProblems:CandNM
+> p  +geom_point(size = 3)
+Error: Aesthetics must either be length one, or the same length as the dataProblems:CandNM
+> p  +geom_point()
+Error: Aesthetics must either be length one, or the same length as the dataProblems:CandNM
+> p <- ggplot(SuperStateDF2, aes( State, CandNM)) 
+> p +geom_bar()
+Error: Aesthetics must either be length one, or the same length as the dataProblems:CandNM
+> p <- ggplot(SuperStateDF2, aes( SuperStateDF2$State, SuperStateDF2$CandNM)) 
+> P +geom_point()
+Error: object 'P' not found
+> p + geom_point()
+Error in exists(name, envir = env, mode = mode) : 
+  argument "env" is missing, with no default
+> p <- ggplot(SuperStateDF2, aes( x =SuperStateDF2$State,  y =SuperStateDF2$CandNM)) 
+> p +geom_point()
+Error in exists(name, envir = env, mode = mode) : 
+  argument "env" is missing, with no default
+> p +geom_point( size = 3)
+Error in exists(name, envir = env, mode = mode) : 
+  argument "env" is missing, with no default
+> p <- ggplot(SuperStateDF2, aes( x =State,  y = Cand_NM))
+> p +geom_point( size = 3)
+> p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(1, 3))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(1, 3))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+> window(height = 5, width = 10)
+Error in hasTsp(x) : argument "x" is missing, with no default
+> States
+ [1] FL IL MI NY OR DC TX GA CA AZ VA TN LA HI WA OH PA IA KY UT NE NH CO OK NC ME ID WY SC CT KS MD MO
+[34] MS MT NJ NV MA RI WV IN ND WI MN DE NM AK AL SD AR GU VT VI AP XX AE PR MP AU BR AA NL SI ON HO NO
+[67] QC BU LO FF ZZ N. TO BC AS NS LE GE MB C 
+80 Levels: AA AE AK AL AP AR AS AU AZ BC BR BU C CA CO CT DC DE FF FL GA GE GU HI HO IA ID IL ... ZZ
+> p <- ggplot(subset(SuperStateDF2,Perc_Of_State_per_cand > .0 ), aes( x =State,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(1, 3))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperStateDF2,Perc_Of_State_per_cand > .15 ), aes( x =State,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(1, 3))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperStateDF2,Perc_Of_State_per_cand > .05 ), aes( x =State,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(1, 3))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperStateDF2,Perc_Of_State_per_cand > .025 ), aes( x =State,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(1, 3))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperStateDF2,Perc_Of_State_per_cand > .015 ), aes( x =State,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(1, 5))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(3, 5))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperStateDF2,Perc_Of_State_per_cand > .015 ), aes( x =State,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(1, 3))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> p <- ggplot(subset(SuperStateDF2,Perc_Of_State_per_cand > .015 ), aes( x =State,  y = Cand_NM))
+> q <- p + geom_point(aes(size = Perc_Of_State_per_cand )) + scale_size_continuous(range = c(2, 4))
+> q + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+> View(SuperStateDF)
+> for(i in States){
++     
++     DCCorr.lm <- lm(Total_Contributions ~ i, data = SuperStateDF)
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(rscore)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = Total_Contributions ~ i, data = SuperStateDF,  : 
+  variable lengths differ (found for 'i') > for(i in States){
++     
++     DCCorr.lm <- lm(Total_Contributions ~ i, data = SuperStateDF)
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = Total_Contributions ~ i, data = SuperStateDF,  : 
+  variable lengths differ (found for 'i') > DCCorr.lm <- lm(Total_Contributions ~ "FL", data = SuperStateDF)
+Error in terms.formula(formula, data = data) : 
+  invalid model formula in ExtractVars
+> DCCorr.lm <- lm(Total_Contributions ~ FL, data = SuperStateDF)
+> r2Score <- summary(DCCorr.lm)$r.squared  
+> print(r2Score)
+[1] 0.07292248
+> for(i in unique(EData$Ccontbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(Total_Contributions ~ i, data = SuperStateDF)
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+> for(i in unique(EData$Contbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(Total_Contributions ~ i, data = SuperStateDF)
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+> for(i in unique(EData$contbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(Total_Contributions ~ i, data = SuperStateDF)
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+[1] "FL"
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = Total_Contributions ~ i, data = SuperStateDF,  : 
+  variable lengths differ (found for 'i') > for(i in unique(EData$contbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(Total_Contributions ~ i,data = subset(SuperStateDF2,contbr_st == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+[1] "FL"
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in eval(expr, envir, enclos) : object 'contbr_st' not found > for(i in unique(EData$contbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(Total_Contributions ~ i,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+[1] "FL"
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in eval(expr, envir, enclos) : 
+  object 'Total_Contributions' not found > for(i in unique(EData$contbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(Edata$Total_Contributions ~ i,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+[1] "FL"
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in eval(expr, envir, enclos) : object 'Edata' not found > for(i in unique(EData$contbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(EData$Total_Contributions ~ i,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+[1] "FL"
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = EData$Total_Contributions ~ i,  : 
+  invalid type (NULL) for variable 'EData$Total_Contributions' > for(i in unique(EData$contbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ i,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+[1] "FL"
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in model.frame.default(formula = SuperStateDF$Total_Contributions ~  : 
+  variable lengths differ (found for 'i') > for(i in unique(EData$contbr_st)){
++     print(i)
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ percent,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+[1] "FL"
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in eval(expr, envir, enclos) : object 'percent' not found > for(i in unique(EData$contbr_st)){
++     
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ Perc_Of_State_per_cand ,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     print(r2Score)
++ }
+[1] 0.07292248
+[1] 0.07851457
+[1] 0.0333636
+[1] 0.006004999
+[1] 0.0005296321
+[1] 0.4421663
+[1] 0.0006090563
+[1] 0.03175422
+[1] 0.05562744
+[1] 0.006645534
+[1] 0.003281752
+[1] 0.007790057
+[1] 0.015382
+[1] 0.03186335
+[1] 0.002519546
+[1] 0.003313369
+[1] 0.003408992
+[1] 0.04690516
+[1] 0.01050839
+[1] 0.1222702
+[1] 0.01706523
+[1] 0.0152616
+[1] 0.01503205
+[1] 0.003700103
+[1] 0.001268472
+[1] 0.01411064
+[1] 0.004965252
+[1] 0.01586605
+[1] 0.008370215
+[1] 0.004326029
+[1] 0.03164891
+[1] 0.001716447
+[1] 0.03733734
+[1] 0.02289796
+[1] 0.0001592838
+[1] 0.004799759
+[1] 0.00420636
+[1] 7.045806e-05
+[1] 7.177505e-05
+[1] 0.002312534
+[1] 0.0970407
+[1] 0.002670007
+[1] 0.002738336
+[1] 0.0456018
+[1] 6.185445e-05
+[1] 0.099894
+[1] 0.0002918668
+[1] 0.0001222432
+[1] 0.001888963
+[1] 0.006140286
+[1] 0.05113487
+[1] 0.001270054
+[1] 0.0001571795
+[1] 0.006327894
+[1] 0.0001612582
+[1] 0.0007595922
+[1] 0.05897498
+[1] 0.0009899593
+[1] 0.003950128
+[1] 0.003950128
+[1] 0.0005881051
+[1] 0.0002959834
+[1] 0.01484262
+[1] 0.0002959834
+[1] 0.0002959834
+[1] 0.007192981
+[1] 0.0009925738
+[1] 0.007192981
+[1] 0.006969274
+[1] 0.05867656
+[1] 0.007886569
+[1] 0.007192981
+[1] 0.0002959834
+[1] 0.0005069398
+[1] 0.003950128
+[1] 0.0002959834
+[1] 0.003950128
+[1] 0.007192981
+[1] 0.0002959834
+[1] 0.00451165
+> for(i in unique(EData$contbr_st)){
++     
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ Perc_Of_State_per_cand ,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(State = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(SuperStateDF2, newDF)
++ }
+> View(rSquaredDF)
+> View(rSquaredDF)
+> for(i in unique(EData$contbr_st)){
++     
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ Perc_Of_State_per_cand ,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(State = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in rbind(deparse.level, ...) : 
+  numbers of columns of arguments do not match > View(RRowDF)
+> View(RRowDF)
+> rSquaredDF <- data.frame(State=factor(),
++                          RSquared=numeric())
+> for(i in unique(EData$contbr_st)){
++     
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ Perc_Of_State_per_cand ,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(State = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+> View(rSquaredDF)
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = State))
+> P + geom_point()
+Error: object 'P' not found
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = State))
+> p + geom_point()
+> p <- ggplot(subset(rSquaredDF,RSquared > .025 ), aes( x = State,  y = RSquared))
+> P + geom_point()
+Error: object 'P' not found
+> p + + geom_point()
+Error in +geom_point() : invalid argument to unary operator
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = State))
+> p  + geom_point()
+> p <- ggplot(subset(rSquaredDF,RSquared > .025 ), aes( x = RSquared,  y = State))
+> p  + geom_point()
+> p <- ggplot(subset(rSquaredDF,RSquared > .025 ), aes( x = State,  y = RSquared))
+> p  + geom_point()
+> p  + geom_bar()
+Error : Mapping a variable to y and also using stat="bin".
+  With stat="bin", it will attempt to set the y value to the count of cases in each group.
+  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
+  If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
+  If you want y to represent values in the data, use stat="identity".
+  See ?geom_bar for examples. (Defunct; last used in version 0.9.2)
+> p  + geom_point()
+> p  + geom_bar(stat = "bin")
+Error : Mapping a variable to y and also using stat="bin".
+  With stat="bin", it will attempt to set the y value to the count of cases in each group.
+  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
+  If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
+  If you want y to represent values in the data, use stat="identity".
+  See ?geom_bar for examples. (Defunct; last used in version 0.9.2)
+> p  + geom_bar(stat = "identity")
+> 
+
+
+[1] 7.177505e-05
+[1] 0.002312534
+[1] 0.0970407
+[1] 0.002670007
+[1] 0.002738336
+[1] 0.0456018
+[1] 6.185445e-05
+[1] 0.099894
+[1] 0.0002918668
+[1] 0.0001222432
+[1] 0.001888963
+[1] 0.006140286
+[1] 0.05113487
+[1] 0.001270054
+[1] 0.0001571795
+[1] 0.006327894
+[1] 0.0001612582
+[1] 0.0007595922
+[1] 0.05897498
+[1] 0.0009899593
+[1] 0.003950128
+[1] 0.003950128
+[1] 0.0005881051
+[1] 0.0002959834
+[1] 0.01484262
+[1] 0.0002959834
+[1] 0.0002959834
+[1] 0.007192981
+[1] 0.0009925738
+[1] 0.007192981
+[1] 0.006969274
+[1] 0.05867656
+[1] 0.007886569
+[1] 0.007192981
+[1] 0.0002959834
+[1] 0.0005069398
+[1] 0.003950128
+[1] 0.0002959834
+[1] 0.003950128
+[1] 0.007192981
+[1] 0.0002959834
+[1] 0.00451165
+> for(i in unique(EData$contbr_st)){
++     
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ Perc_Of_State_per_cand ,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(State = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(SuperStateDF2, newDF)
++ }
+> View(rSquaredDF)
+> View(rSquaredDF)
+> for(i in unique(EData$contbr_st)){
++     
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ Perc_Of_State_per_cand ,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(State = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in rbind(deparse.level, ...) : 
+  numbers of columns of arguments do not match > View(RRowDF)
+> View(RRowDF)
+> rSquaredDF <- data.frame(State=factor(),
++                          RSquared=numeric())
+> for(i in unique(EData$contbr_st)){
++     
++     
++     DCCorr.lm <- lm(SuperStateDF$Total_Contributions ~ Perc_Of_State_per_cand ,data = subset(SuperStateDF2,State == i ))
++     r2Score <- summary(DCCorr.lm)$r.squared  
++     RRowDF <- data.frame(State = c(i), RSquared = c(r2Score))
++     rSquaredDF <- rbind(RRowDF, rSquaredDF)
++ }
+> View(rSquaredDF)
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = State))
+> P + geom_point()
+Error: object 'P' not found
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = State))
+> p + geom_point()
+> p <- ggplot(subset(rSquaredDF,RSquared > .025 ), aes( x = State,  y = RSquared))
+> P + geom_point()
+Error: object 'P' not found
+> p + + geom_point()
+Error in +geom_point() : invalid argument to unary operator
+> p <- ggplot(subset(rSquaredDF,RSquared > .05 ), aes( x = RSquared,  y = State))
+> p  + geom_point()
+> p <- ggplot(subset(rSquaredDF,RSquared > .025 ), aes( x = RSquared,  y = State))
+> p  + geom_point()
+> p <- ggplot(subset(rSquaredDF,RSquared > .025 ), aes( x = State,  y = RSquared))
+> p  + geom_point()
+> p  + geom_bar()
+Error : Mapping a variable to y and also using stat="bin".
+  With stat="bin", it will attempt to set the y value to the count of cases in each group.
+  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
+  If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
+  If you want y to represent values in the data, use stat="identity".
+  See ?geom_bar for examples. (Defunct; last used in version 0.9.2)
+> p  + geom_point()
+> p  + geom_bar(stat = "bin")
+Error : Mapping a variable to y and also using stat="bin".
+  With stat="bin", it will attempt to set the y value to the count of cases in each group.
+  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.
+  If you want y to represent counts of cases, use stat="bin" and don't map a variable to y.
+  If you want y to represent values in the data, use stat="identity".
+  See ?geom_bar for examples. (Defunct; last used in version 0.9.2)
+> p  + geom_bar(stat = "identity")
+
