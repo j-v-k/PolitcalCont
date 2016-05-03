@@ -62,7 +62,6 @@ hist(TotalContributionsHist, breaks = 12)
 ```
 
 
-
 This bar chart shows the amount raised per state. Unsurprisingly California has the largest amount of total donations as California has the largest total population. California is followed by Texas then New york. 
 
 ```{r StateBar, echo=FALSE, cache=TRUE, cache.path = 'cache/', fig.path='figure/', fig.width = 13}
@@ -181,7 +180,7 @@ p + geom_point(size = 3) + geom_abline(intercept= 8893144,slope= -6291339)
 ```
 
 
-Here is the Summary of the correlation. As we can see the RSquared value is .001371477 which is very weak.
+Here is the Summary of the correlation. As we can see the rSquared value is .001371477 which is very weak.
 
 ```{r, echo=FALSE}
 
@@ -613,7 +612,7 @@ p + geom_point(size = 3)+geom_abline(intercept=3.410e+06,slope=3.846e+09)
 ```
 
 
-Without Clinton, the correlation is much less strong. It would be interesting to compare this to the data in the 2004 and 2008 election and before to see if these Zip Codes correlate with mainstream well funded Democrats(essentially only Hilary in this elction) or if they are simply very pro Hilary and would not have a strong correlation in elections not involving Hilary. 
+Without Clinton, the correlation is much less strong. It would be interesting to compare this to the data in the 2004 and 2008 election and before to see if these Zip Codes correlate with mainstream well funded Democrats(essentially only Hilary in this election) or if they are simply very pro Hilary and would not have a strong correlation in elections not involving Hilary. 
 
 
 
@@ -638,7 +637,7 @@ p+q+ SDL + scale + geom_point(aes(size=Perc_Cand_State))
 
 
 ####Description One:
-Plot one shows the percent of a candidates Total_contribution which comes from each particular state. You can see that the generally the less popular candiadtes generally have contributions coming from mostly there home state(eg. Bobby Jindal has 80% of his contributions coming from Louisianas does George Pataki % from New York). Candidates with larger total contriubitons have a more diversified base of support. For instance Hilary has significant portions of revenue (defined as over 2.5% of her total) coming from 15 states. 
+Plot one shows the percent of a candidates total contribution which comes from each particular state. You can see that the generally the less popular candiadtes generally have contributions coming from mostly there home state(eg. Bobby Jindal has 80% of his contributions coming from Louisiana). Candidates with larger total contriubitons have a more diversified base of support. For instance Hilary has significant portions of revenue (defined as over 2.5% of her total) coming from 15 states. 
 
 Looking at the states, Florida and California are the only states to contribute over 2.5% of every candidates Total Contriubtions, which makes some sense as these states are very populous. It is interesting to note however, that both Florida and Califonia do not provide over 20% of any candidates total contributions. 
 
@@ -655,7 +654,7 @@ cityp  + q + r2CityLab + r2ylab +geom_bar(stat = "identity")
 ####Description Two:
 This graph shows the "Coefficient of determination" or R Squared Score betweeen  contributions for a candidate which come from that particular city, and the Total_contriubitons overall. In other words this score shows the proportion of the differences in the Total Contributions for each candidate, which can be predicted by the percentage of Total Contriubtions each candidate gets from the respective city.
 
-Washington DC unsurprisingly has the highest Rsquared value, which makes sense given the fact that DC is the seat of American politics. Minneapolis is second for less clear reasons. Surprisingly New York barely makes the .05 threshold for appearing on the graph. The inclusion of Salt Lake City at a .16 value is logical as it is the center for the Mormon Faith, and would most likely be a good indicator of the contribtions of the entire Mormon community. One city that is included, Coral Gables at .15, does not make sense if you did not know it was very close suburb to Miami.
+Washington DC unsurprisingly has the highest Rsquared value, which makes sense given the fact that DC is the seat of American politics. Minneapolis is second for less clear reasons. Surprisingly New York barely makes the .05 threshold for appearing on the graph. The inclusion of Salt Lake City at a .16 value is logical as it is the center for the Mormon Faith, and would most likely be a good indicator of the contribtions of the entire Mormon community. 
 
 
 
@@ -670,7 +669,7 @@ a+b+c+d + e + geom_line(size = 1)
 
 ####Description Three:
 
-This graph shows the top 8 eight candidates by there campaign contributions over time. The jump on July 1 was due to the end of the campaign rebate program,which showed up in my data as negative total_contriubitons. This had been depressing the overall campaign contributions of many of the canidates significantly. Most notably was Jeb Bush who saw a jump of around $4 Million Dollars as a result of the rebate program. 
+This graph shows the top 8 eight candidates by there campaign contributions over time. The jump on July 1 was due to the end of the campaign rebate program,which showed up in my data as negative total contriubitons. This had been depressing the overall campaign contributions of many of the canidates significantly. Most notably was Jeb Bush who saw a jump of around $4 Million Dollars as a result of the rebate program's end. 
 
 Also interesting is the jump that many candidates reciever (around $1-3Million each) at the end of the October. I am not sure why this is the case, but I would guess that it has something to do with the end of the fiscal year which occurs in October. Also intereting to me is the bump that Ted Cruz experiences around the first of April. Ben Carson is the only other candidate who is active in the race at that point and he had raised very little at that point. As a result it is hard to tell whether that bump is a result of something Ted Cruz did, or something procedural. I would guess however, that is procedural phenomenon, like the end of the fiscal year bump, because it occurs exactly at the half-way point of the fiscal year. 
 
@@ -689,7 +688,7 @@ I thought the location analysis was especially interesting. The fact that Washin
 
 In the future I would like to compare the correlation of the funding totals of different locations on Republicans and Democrats sepearte total funding numbers. I would also like to look at which jobs are the most influential, and map rSquared values as I did with location. I would also like to map the infulence of these locations and jobs on actuall poll numbers and votes, not just overall contriubtions.
 
-It is important to note that these amounts only cover the money going to the candidates themselves. The candidates also have super-pacs which they are not officially allowed to control. These superpacs are allowed to take unlimited amount of campaign contributions and as a result often have even more money then the individual campaigns. 
+It is important to note that these amounts only cover the money going to the candidates themselves. The candidates also have Superpacs which they are not officially allowed to control. These Superpacs are allowed to take unlimited amount of campaign contributions and as a result often have even more money then the individual campaigns. 
 
 
 
