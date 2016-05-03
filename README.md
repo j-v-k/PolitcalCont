@@ -4,4 +4,10 @@
 In progress
 
 An analysis of the individual campaign contributions from FEC dataset
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+
+Can be seen here:
+ https://rawgit.com/j-v-k/PolitcalCont/master/RMD%20and%20HTML/PoltCont.html
 >>>>>>> origin/master
