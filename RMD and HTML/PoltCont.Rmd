@@ -17,14 +17,14 @@ library("ggplot2")
 
 This data comes from the Federal Election Commissions Contributor data from all states, found here: http://fec.gov/disclosurep/PDownload.do
 
-This list only includes contributions from individuals and does not include receipts from other sources. The data also only reflects the early part of the race, with no data included past 9/30/2015.
+The data only includes contributions from individuals counted by the FEC and does not include receipts from other sources. The data also only reflects the early part of the race, with no data included past 9/30/2015.
 
 
 
 ###Descriptive Univariate Graphs
 
 
-I first created a barchart showing the amount raised by each candiate to get a sense of the data. Hillary has riased far more money as counted by this dataset. She is dominating rest of the field with over $60,000,000 raised. The next closest is Jeb Bush with over $20 Milllion raised. 
+The first barchart shows the amount raised by each candiate. Hillary has raised far more money as counted by this dataset. She is dominating rest of the field with over $60,000,000 raised. The next closest is Jeb Bush with over $20 Milllion raised. 
 
 
 
@@ -44,7 +44,7 @@ Ed <-aggregate(EData$contb_receipt_amt,by=list(Category=EData$cand_nm),FUN=sum)
 summary(Ed)[8:13]
 
 ```
-Below is a histogram of the data again showing frequency of Total Contriubtions. AS we can see, the data is skewed far to the left. Hilary is the bar on the far right. 
+Below is a histogram of the data again showing frequency of total contriubtions. AS we can see, the data is skewed far to the left. Hilary is the bar on the far right. 
 
 ```{r Hist, echo=FALSE, cache=TRUE, cache.path = 'cache/', fig.path='figure/'}
 
@@ -63,7 +63,7 @@ hist(TotalContributionsHist, breaks = 12)
 
 
 
-Then I made another bar graph but did it per state, unsurprisingly California is in the lead as California has the largest total population. Followed by Texas, then New york. 
+This bar chart shows the amount raised per state. Unsurprisingly California has the largest amount of total donations as California has the largest total population. California is followed by Texas then New york. 
 
 ```{r StateBar, echo=FALSE, cache=TRUE, cache.path = 'cache/', fig.path='figure/', fig.width = 13}
 
@@ -75,11 +75,7 @@ p + q + geom_bar(stat = "identity")
 ```
 
 
-
-
 ### Cumulative Sum over Time Graphs
-
-
 
 I decided to look into the cumulative sum of the candidates contributions to see if I could find anything interesting. My first graph looks at Hilary alone. Hilary shows steady increase in funds, there are no huge leaps or flat areas which are immediately obvious.  
 
@@ -109,7 +105,7 @@ e <- ylab("Total Recieved in Millions")
 a +b +c+d +e + geom_line(size = 1)
 ```
 
-Here is the graph of the top 8 candidates over time. Interestingly there is not much of an obvious distinction between the candidates trends.  
+Below is a chart of the top 8 candidates over time. Interestingly there is not much of an obvious distinction between the candidates trends. All the candidates have similiar paths and increases in funding, with no obvious jumps.   
 
 ```{r top8, echo=FALSE, cache=TRUE, cache.path = 'cache/', fig.path='figure/'}
    library(scales)
@@ -162,7 +158,7 @@ p +q+z +geom_bar(stat = "identity") + xlab("") + ylab("")
 
 ```
 
-This graph shows the portion of retired persons who make up their total contriubtion base. Ben Carson has the highest portion with almost 30% of his contributions coming from retired persons. Donald Trump and Carly Fiorina are next at above 25% of the total contriubtions coming from retired persons
+This chart shows the portion of retired persons who make up their total contriubtion base. Ben Carson has the highest portion with almost 30% of his contributions coming from retired persons. Donald Trump and Carly Fiorina are next at above 25% of the total contriubtions coming from retired persons
 
 ```{r RetiredBarPercent, echo=FALSE, cache=TRUE, cache.path = 'cache/', fig.path='figure/'}
  
